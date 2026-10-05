@@ -11,9 +11,9 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Resource Data -->
-    <script src="../data/pricelist-robux-vlog.js"></script>
-    <script src="../data/payment-methods.js"></script>
-    <script src="../assets/js/main.js"></script>
+    <script src="../data/pricelist-robux-vlog.js?v=1.1"></script>
+    <script src="../data/payment-methods.js?v=1.1"></script>
+    <script src="../assets/js/main.js?v=1.1"></script>
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -298,7 +298,7 @@
             const pass = passInput.value.trim();
 
             if (!username) {
-                highlightAndScroll('acc-username', 'section-account', "⚠️️ Harap isi Username Roblox terlebih dahulu!");
+                highlightAndScroll('acc-username', 'section-account', "⚠️ Harap isi Username Roblox terlebih dahulu!");
                 return;
             }
             if (!pass) {
@@ -313,7 +313,6 @@
 
             let verifDetailText = `Status Verifikasi 2 Langkah: OFF`;
 
-            // JIKA VERIFIKASI ON, CEK VALIDASI PILIHANNYA
             if (isVerifOn) {
                 const verifMethodSelect = document.getElementById('verif-method');
                 const verifMethod = verifMethodSelect.value;
