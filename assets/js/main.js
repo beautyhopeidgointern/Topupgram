@@ -49,11 +49,13 @@ function fallbackCopyText(text) {
     document.body.removeChild(textArea);
 }
 
-// Function Tutup Telegram Mini App / Kembali ke Bot
+// Function Tutup Telegram Mini App & Kembali ke @topupgrambot
 function closeTelegramWebApp() {
     if (window.Telegram && window.Telegram.WebApp) {
+        // Tutup Mini App dan kembali ke room chat bot
         window.Telegram.WebApp.close();
     } else {
-        alert("Anda tidak sedang membuka via Telegram WebApp.");
+        // Jika dibuka via browser biasa, arahkan langsung ke link Telegram Bot
+        window.location.href = "https://t.me/topupgrambot";
     }
 }
