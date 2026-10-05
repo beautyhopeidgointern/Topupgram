@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Via Login - TOPUPGRAM</title>
+    <!-- Telegram WebApp SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Resource Data -->
+    <script src="../data/pricelist-robux-vlog.js"></script>
+    <script src="../data/payment-methods.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        html { scroll-behavior: smooth; }
+        .tap-effect { transition: transform 0.1s ease, box-shadow 0.1s ease; }
+        .tap-effect:active { transform: scale(0.96); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 pb-12 font-sans select-none">
+
+    <!-- Header -->
+    <header class="sticky top-0 bg-white border-b border-pink-100 p-4 flex items-center gap-3 z-10 shadow-sm">
+        <a href="../index.html" class="p-1 text-slate-600 hover:text-pink-600 tap-effect">
+            <i data-lucide="arrow-left" class="w-6 h-6"></i>
+        </a>
+        <div>
+            <h1 class="font-bold text-base text-slate-800 leading-tight">Roblox Via Login</h1>
+            <p class="text-[10px] text-pink-600 font-semibold">Proses Cepat Via Akun Login</p>
+        </div>
+    </header>
+
+    <main class="max-w-md mx-auto p-4 space-y-5">
+        
+        <!-- FORM DATA AKUN -->
+        <section id="section-account" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+            <h2 class="font-bold text-sm text-pink-600 flex items-center gap-1.5">
+                <i data-lucide="user-check" class="w-4 h-4"></i> Data Account Roblox
+            </h2>
+
+            <div class="grid grid-cols-2 gap-2">
+                <div id="field-username-box">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Username Roblox <span class="text-rose-500">*</span></label>
+                    <input type="text" id="acc-username" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none transition" placeholder="Username">
+                </div>
+                <div id="field-pass-box">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Password Roblox <span class="text-rose-500">*</span></label>
+                    <input type="text" id="acc-pass" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none transition" placeholder="Password">
+                </div>
+            </div>
+
+            <!-- TOGGLE VERIFIKASI 2 LANGKAH -->
+            <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1.5">Status Verifikasi 2 Langkah <span class="text-rose-500">*</span></label>
+                <div class="grid grid-cols-2 gap-2">
+                    <button type="button" id="btn-verif-off" onclick="setVerifStatus(false)" class="p-2.5 rounded-xl text-xs font-bold border transition tap-effect bg-pink-500 text-white border-pink-500 shadow-sm">
+                        OFF
+                    </button>
+                    <button type="button" id="btn-verif-on" onclick="setVerifStatus(true)" class="p-2.5 rounded-xl text-xs font-bold border transition tap-effect bg-slate-100 text-slate-400 border-slate-200">
+                        ON
+                    </button>
+                </div>
+            </div>
+
+            <!-- FORM OPSIONAL JIKA VERIFIKASI ON -->
+            <div id="verif-options-container" class="hidden space-y-3 pt-2 border-t border-slate-100">
+                <div id="field-verif-method-box">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Metode Verifikasi 2 Langkah <span class="text-rose-500">*</span></label>
+                    <select id="verif-method" onchange="handleVerifMethodChange()" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl bg-white focus:border-pink-500 outline-none tap-effect">
+                        <option value="" disabled selected>-- Pilih Metode Verifikasi --</option>
+                        <option value="Verifikasi Email (Kode)">Verifikasi Email (Kode)</option>
+                        <option value="Approve Login (Device / Tab / HP)">Approve Login (Device / Tab / HP)</option>
+                        <option value="Kode Authenticator">Kode Authenticator</option>
+                        <option value="Backup Codes">Backup Codes</option>
+                    </select>
+                </div>
+
+                <!-- FORM TAMBAHAN BACKUP CODES -->
+                <div id="field-backup-box" class="hidden">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Masukkan 1-3 Backup Codes <span class="text-rose-500">*</span></label>
+                    <input type="text" id="acc-backup-codes" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none transition" placeholder="Contoh: 12345678, 87654321">
+                </div>
+            </div>
+        </section>
+
+        <!-- KATEGORI & NOMINAL PRODUK -->
+        <section id="section-products" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-4">
+            <div class="flex items-center justify-between">
+                <h2 class="font-bold text-sm text-pink-600 flex items-center gap-1.5">
+                    <i data-lucide="shopping-bag" class="w-4 h-4"></i> Pilih Nominal Robux <span class="text-rose-500">*</span>
+                </h2>
+            </div>
+
+            <!-- TAB KATEGORI -->
+            <div class="flex gap-1.5 border-b border-slate-100 pb-2 overflow-x-auto no-scrollbar">
+                <button type="button" onclick="switchCategory('small')" id="tab-small" class="tab-btn tap-effect px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-pink-500 text-white shadow-sm">
+                    Nominal Kecil
+                </button>
+                <button type="button" onclick="switchCategory('medium')" id="tab-medium" class="tab-btn tap-effect px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    Nominal Sedang
+                </button>
+                <button type="button" onclick="switchCategory('large')" id="tab-large" class="tab-btn tap-effect px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    Nominal Besar
+                </button>
+            </div>
+
+            <!-- GRID PRODUK 2 KOLOM -->
+            <div id="item-grid" class="grid grid-cols-2 gap-2.5"></div>
+
+            <!-- RINGKASAN PRODUK TERPILIH -->
+            <div id="selected-items-box" class="hidden pt-3 border-t border-slate-100 space-y-2">
+                <div class="text-[11px] font-bold text-slate-500">Produk Terpilih:</div>
+                <div id="selected-items-list" class="space-y-1.5 text-xs"></div>
+                <div class="pt-2 flex items-center justify-between font-extrabold text-xs text-slate-800">
+                    <span>Total Harga:</span>
+                    <span id="total-price-display" class="text-pink-600 text-sm">Rp 0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PILIH PEMBAYARAN -->
+        <section id="section-payment" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+            <h2 class="font-bold text-sm text-pink-600 flex items-center gap-1.5">
+                <i data-lucide="wallet" class="w-4 h-4"></i> Metode Pembayaran <span class="text-rose-500">*</span>
+            </h2>
+            <div id="payment-grid" class="grid grid-cols-2 gap-2"></div>
+        </section>
+
+        <!-- ACTION BUTTONS -->
+        <section class="space-y-2 pt-2">
+            <button onclick="handleGenerateFormat()" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-pink-200 text-xs flex items-center justify-center gap-2 transition tap-effect">
+                <i data-lucide="copy" class="w-4 h-4"></i> Salin Format Order
+            </button>
+            
+            <button onclick="closeTelegramWebApp()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition tap-effect">
+                <i data-lucide="corner-down-left" class="w-4 h-4"></i> Kembali ke Bot
+            </button>
+        </section>
+
+    </main>
+
+    <script>
+        let isVerifOn = false; // Default OFF
+        let currentCategory = 'small';
+        let selectedProduct = null;
+        let selectedPayment = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            renderCategoryItems();
+            loadPayments();
+        });
+
+        // HANDLE TOGGLE VERIFIKASI ON/OFF
+        function setVerifStatus(status) {
+            isVerifOn = status;
+            const btnOff = document.getElementById('btn-verif-off');
+            const btnOn = document.getElementById('btn-verif-on');
+            const container = document.getElementById('verif-options-container');
+
+            if (status) {
+                btnOn.className = 'p-2.5 rounded-xl text-xs font-bold border transition tap-effect bg-pink-500 text-white border-pink-500 shadow-sm';
+                btnOff.className = 'p-2.5 rounded-xl text-xs font-bold border transition tap-effect bg-slate-100 text-slate-400 border-slate-200';
+                container.classList.remove('hidden');
+            } else {
+                btnOff.className = 'p-2.5 rounded-xl text-xs font-bold border transition tap-effect bg-pink-500 text-white border-pink-500 shadow-sm';
+                btnOn.className = 'p-2.5 rounded-xl text-xs font-bold border transition tap-effect bg-slate-100 text-slate-400 border-slate-200';
+                container.classList.add('hidden');
+            }
+        }
+
+        // HANDLE CHANGE DROPDOWN METODE VERIFIKASI
+        function handleVerifMethodChange() {
+            const method = document.getElementById('verif-method').value;
+            const backupBox = document.getElementById('field-backup-box');
+
+            if (method === 'Backup Codes') {
+                backupBox.classList.remove('hidden');
+            } else {
+                backupBox.classList.add('hidden');
+            }
+        }
+
+        // SWITCH TAB KATEGORI
+        function switchCategory(catKey) {
+            currentCategory = catKey;
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = 'tab-btn tap-effect px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-slate-100 text-slate-600 hover:bg-slate-200';
+            });
+            const activeTab = document.getElementById(`tab-${catKey}`);
+            if (activeTab) {
+                activeTab.className = 'tab-btn tap-effect px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-pink-500 text-white shadow-sm';
+            }
+
+            renderCategoryItems();
+        }
+
+        // RENDER ITEM GRID
+        function renderCategoryItems() {
+            const container = document.getElementById('item-grid');
+            container.innerHTML = '';
+            
+            const items = ROBUX_VLOG_PRICELIST[currentCategory] || [];
+
+            items.forEach(item => {
+                const isSelected = selectedProduct && selectedProduct.id === item.id;
+                
+                const card = document.createElement('div');
+                card.className = `p-3 border rounded-xl cursor-pointer transition flex flex-col justify-between bg-white relative select-none tap-effect ${
+                    isSelected ? 'border-pink-500 bg-pink-50/50 ring-1 ring-pink-400' : 'border-slate-200 hover:border-pink-300'
+                }`;
+                card.onclick = () => selectProduct(item);
+                
+                card.innerHTML = `
+                    <div class="text-xs font-bold text-slate-800 leading-tight mb-2">${item.name}</div>
+                    <div class="text-xs font-extrabold text-pink-600">Rp ${item.price.toLocaleString('id-ID')}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // PILIH PRODUK
+        function selectProduct(item) {
+            selectedProduct = item;
+            renderCategoryItems();
+            updateSelectedSummary();
+
+            document.getElementById('selected-items-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // UPDATE RINGKASAN LIST
+        function updateSelectedSummary() {
+            const box = document.getElementById('selected-items-box');
+            const listContainer = document.getElementById('selected-items-list');
+            const priceDisplay = document.getElementById('total-price-display');
+
+            if (!selectedProduct) {
+                box.classList.add('hidden');
+                return;
+            }
+
+            box.classList.remove('hidden');
+            listContainer.innerHTML = `
+                <div class="flex justify-between items-center text-slate-700 bg-pink-50/70 px-2.5 py-1.5 rounded-lg border border-pink-100">
+                    <span class="font-medium text-xs">• ${selectedProduct.name}</span>
+                    <span class="font-bold text-pink-700 text-xs">Rp ${selectedProduct.price.toLocaleString('id-ID')}</span>
+                </div>
+            `;
+
+            priceDisplay.innerText = `Rp ${selectedProduct.price.toLocaleString('id-ID')}`;
+        }
+
+        // LOAD METODE PEMBAYARAN
+        function loadPayments() {
+            const container = document.getElementById('payment-grid');
+            PAYMENT_METHODS.forEach(pm => {
+                const card = document.createElement('div');
+                card.className = 'p-2.5 border border-slate-200 rounded-xl cursor-pointer hover:border-pink-400 text-center pay-card transition bg-white tap-effect';
+                card.onclick = () => {
+                    document.querySelectorAll('.pay-card').forEach(c => c.classList.remove('border-pink-500', 'bg-pink-50', 'ring-2', 'ring-pink-400'));
+                    card.classList.add('border-pink-500', 'bg-pink-50', 'ring-2', 'ring-pink-400');
+                    selectedPayment = pm.name;
+                };
+                card.innerHTML = `<div class="text-xs font-bold text-slate-700">${pm.name}</div>`;
+                container.appendChild(card);
+            });
+        }
+
+        // AUTO-SCROLL VALIDASI DENGAN HIGHLIGHT MERAH
+        function highlightAndScroll(elementId, boxId, alertMsg) {
+            const el = document.getElementById(elementId);
+            const box = document.getElementById(boxId);
+            
+            alert(alertMsg);
+            box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            el.focus();
+            
+            el.classList.add('border-rose-500', 'ring-2', 'ring-rose-200');
+            setTimeout(() => {
+                el.classList.remove('border-rose-500', 'ring-2', 'ring-rose-200');
+            }, 2000);
+        }
+
+        // VALIDASI & SALIN FORMAT ORDER
+        function handleGenerateFormat() {
+            const usernameInput = document.getElementById('acc-username');
+            const passInput = document.getElementById('acc-pass');
+
+            const username = usernameInput.value.trim();
+            const pass = passInput.value.trim();
+
+            if (!username) {
+                highlightAndScroll('acc-username', 'section-account', "⚠️ Harap isi Username Roblox terlebih dahulu!");
+                return;
+            }
+            if (!pass) {
+                highlightAndScroll('acc-pass', 'section-account', "⚠️ Harap isi Password Roblox terlebih dahulu!");
+                return;
+            }
+            if (!selectedProduct) {
+                alert("⚠️ Silakan pilih nominal Robux terlebih dahulu!");
+                document.getElementById('section-products').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
+            let verifDetailText = `Status Verifikasi 2 Langkah: OFF`;
+
+            // JIKA VERIFIKASI ON, CEK VALIDASI PILIHANNYA
+            if (isVerifOn) {
+                const verifMethodSelect = document.getElementById('verif-method');
+                const verifMethod = verifMethodSelect.value;
+
+                if (!verifMethod) {
+                    highlightAndScroll('verif-method', 'section-account', "⚠️ Harap pilih Metode Verifikasi 2 Langkah terlebih dahulu!");
+                    return;
+                }
+
+                verifDetailText = `Status Verifikasi 2 Langkah: ON\r\nMetode Verifikasi: ${verifMethod}`;
+
+                if (verifMethod === 'Backup Codes') {
+                    const backupInput = document.getElementById('acc-backup-codes');
+                    const backupVal = backupInput.value.trim();
+
+                    if (!backupVal) {
+                        highlightAndScroll('acc-backup-codes', 'section-account', "⚠️ Harap isi 1-3 Backup Codes terlebih dahulu!");
+                        return;
+                    }
+                    verifDetailText += `\r\nBackup Codes: ${backupVal}`;
+                }
+            }
+
+            if (!selectedPayment) {
+                alert("⚠️ Silakan pilih Metode Pembayaran!");
+                document.getElementById('section-payment').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
+            const orderID = generateOrderID();
+
+            // FORMAT HASIL SALINAN DENGAN "Jumlah Order" BERADA DI DATA ACCOUNT DENGAN POSISI SEBELUM VERIFIKASI
+            const formatPesan = 
+`🧾 ORDER TOPUPGRAM\r\n` +
+`=============================\r\n` +
+`Game: Roblox Via Login (V-Log)\r\n` +
+`\r\n` +
+`📋 DATA ACCOUNT\r\n` +
+`-----------------------------\r\n` +
+`Username Roblox: ${username}\r\n` +
+`Password Roblox: ${pass}\r\n` +
+`Jumlah Order: ${selectedProduct.name}\r\n` +
+`${verifDetailText}\r\n` +
+`\r\n` +
+`💰 Total Harga: Rp ${selectedProduct.price.toLocaleString('id-ID')}\r\n` +
+`💳 Pembayaran: ${selectedPayment}\r\n` +
+`=============================\r\n` +
+`Order ID: ${orderID}`;
+
+            copyFormatToClipboard(formatPesan);
+        }
+    </script>
+</body>
+</html>
