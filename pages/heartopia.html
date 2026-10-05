@@ -56,9 +56,10 @@
                 <i data-lucide="user-check" class="w-4 h-4"></i> Data Account
             </h2>
 
-            <div>
+            <div id="field-login-box">
                 <label class="block text-xs font-semibold text-slate-600 mb-1">Login Method <span class="text-rose-500">*</span></label>
-                <select id="login-method" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl bg-white focus:border-pink-500 outline-none tap-effect">
+                <select id="login-method" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl bg-white focus:border-pink-500 outline-none tap-effect transition">
+                    <option value="" disabled selected>-- Pilih Login Method --</option>
                     <option value="Google Account">Google Account</option>
                     <option value="Facebook Account">Facebook Account</option>
                 </select>
@@ -76,13 +77,15 @@
             </div>
 
             <div class="grid grid-cols-2 gap-2">
-                <div>
+                <div id="field-server-box">
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Server <span class="text-rose-500">*</span></label>
-                    <select id="acc-server" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl bg-white focus:border-pink-500 outline-none tap-effect">
+                    <select id="acc-server" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl bg-white focus:border-pink-500 outline-none tap-effect transition">
+                        <option value="" disabled selected>-- Pilih Server --</option>
                         <option value="SEA">SEA</option>
                         <option value="Asia">Asia</option>
                         <option value="America">America</option>
                         <option value="Europe">Europe</option>
+                        <option value="TW/HK/MO">TW/HK/MO</option>
                     </select>
                 </div>
                 <div id="field-uid-box">
@@ -295,23 +298,33 @@
 
         // VALIDASI & SALIN FORMAT
         function handleGenerateFormat() {
-            const loginMethod = document.getElementById('login-method').value.trim();
+            const loginInput = document.getElementById('login-method');
             const emailInput = document.getElementById('acc-email');
             const passInput = document.getElementById('acc-pass');
+            const serverInput = document.getElementById('acc-server');
             const uidInput = document.getElementById('acc-uid');
 
+            const loginMethod = loginInput.value;
             const email = emailInput.value.trim();
             const pass = passInput.value.trim();
-            const server = document.getElementById('acc-server').value.trim();
+            const server = serverInput.value;
             const uid = uidInput.value.trim();
 
             // AUTO SCROLL KE INPUT KOSONG
+            if (!loginMethod) {
+                highlightAndScroll('login-method', 'section-account', "⚠️ Harap pilih Login Method terlebih dahulu!");
+                return;
+            }
             if (!email) {
                 highlightAndScroll('acc-email', 'section-account', "⚠️ Harap isi Email / No HP terlebih dahulu!");
                 return;
             }
             if (!pass) {
                 highlightAndScroll('acc-pass', 'section-account', "⚠️ Harap isi Password terlebih dahulu!");
+                return;
+            }
+            if (!server) {
+                highlightAndScroll('acc-server', 'section-account', "⚠️ Harap pilih Server terlebih dahulu!");
                 return;
             }
             if (!uid) {
