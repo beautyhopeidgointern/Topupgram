@@ -49,7 +49,7 @@ function fallbackCopyText(text) {
     document.body.removeChild(textArea);
 }
 
-// Function Kembali ke @topupgrambot
+// Function Kembali ke Bot
 function closeTelegramWebApp() {
     const botUrl = "https://t.me/topupgrambot";
 
