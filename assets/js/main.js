@@ -18,7 +18,7 @@ function showToast(message, type = 'error') {
     toast.className = `flex items-center gap-2.5 p-3 px-4 rounded-2xl shadow-xl backdrop-blur-md border ${bgColor} ${textColor} text-xs font-semibold transform -translate-y-8 opacity-0 transition-all duration-300 ease-out pointer-events-auto`;
     
     toast.innerHTML = `
-        <div class="flex-shrink-0 text-base">${isSuccess ? '✅' : '⚠️'}</div>
+        <div class="flex-shrink-0 text-base">${isSuccess ? '✅' : '⚠️️'}</div>
         <div class="flex-1 leading-tight text-[11px]">${message}</div>
     `;
 
@@ -65,29 +65,43 @@ function generateOrderID() {
     return `TPG${dateStr}${randomNum}${randomLetters}`;
 }
 
-// Function Salin Format ke Clipboard
+// Function Salin Format ke Clipboard dengan Proteksi Enter Telegram
 function copyFormatToClipboard(textFormat) {
+    // Normalisasi enter agar kompatibel penuh dengan Telegram & WhatsApp
+    const normalizedText = textFormat.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
     if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(textFormat).then(() => {
+        navigator.clipboard.writeText(normalizedText).then(() => {
             showToast("Format order disalin! Silakan paste di bot Telegram.", 'success');
         }).catch(() => {
-            fallbackCopyText(textFormat);
+            fallbackCopyText(normalizedText);
         });
     } else {
-        fallbackCopyText(textFormat);
+        fallbackCopyText(normalizedText);
     }
 }
 
 function fallbackCopyText(text) {
     const textArea = document.createElement("textarea");
     textArea.value = text;
+    
+    // Gunakan gaya khusus agar browser menjaga formatting enter murni
     textArea.style.position = "fixed";
     textArea.style.top = "0";
     textArea.style.left = "0";
-    textArea.style.opacity = "0";
+    textArea.style.width = "2em";
+    textArea.style.height = "2em";
+    textArea.style.padding = "0";
+    textArea.style.border = "none";
+    textArea.style.outline = "none";
+    textArea.style.boxShadow = "none";
+    textArea.style.background = "transparent";
+    textArea.setAttribute("readonly", "");
+
     document.body.appendChild(textArea);
     textArea.focus();
     textArea.select();
+
     try {
         document.execCommand('copy');
         showToast("Format order disalin! Silakan paste di bot Telegram.", 'success');
