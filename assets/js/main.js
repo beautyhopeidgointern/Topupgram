@@ -1,6 +1,5 @@
 // Function Toast Notifikasi Custom ala iPhone (Ganti Alert Bawaan Browser)
 function showToast(message, type = 'error') {
-    // Cek jika container toast sudah ada, jika belum buatkan
     let toastContainer = document.getElementById('custom-toast-container');
     if (!toastContainer) {
         toastContainer = document.createElement('div');
@@ -9,7 +8,6 @@ function showToast(message, type = 'error') {
         document.body.appendChild(toastContainer);
     }
 
-    // Tentukan warna icon & accent
     const isSuccess = type === 'success';
     const bgColor = isSuccess ? 'bg-emerald-900/90 border-emerald-500/30' : 'bg-slate-900/90 border-slate-700/50';
     const textColor = 'text-white';
@@ -18,19 +16,17 @@ function showToast(message, type = 'error') {
     toast.className = `flex items-center gap-2.5 p-3 px-4 rounded-2xl shadow-xl backdrop-blur-md border ${bgColor} ${textColor} text-xs font-semibold transform -translate-y-8 opacity-0 transition-all duration-300 ease-out pointer-events-auto`;
     
     toast.innerHTML = `
-        <div class="flex-shrink-0 text-base">${isSuccess ? '✅' : '⚠️️'}</div>
+        <div class="flex-shrink-0 text-base">${isSuccess ? '✅' : '⚠️'}</div>
         <div class="flex-1 leading-tight text-[11px]">${message}</div>
     `;
 
     toastContainer.appendChild(toast);
 
-    // Animasi Muncul ala iOS
     setTimeout(() => {
         toast.classList.remove('-translate-y-8', 'opacity-0');
         toast.classList.add('translate-y-0', 'opacity-100');
     }, 10);
 
-    // Otomatis Hilang setelah 2.5 detik
     setTimeout(() => {
         toast.classList.remove('translate-y-0', 'opacity-100');
         toast.classList.add('-translate-y-8', 'opacity-0');
@@ -42,7 +38,6 @@ function showToast(message, type = 'error') {
     }, 2500);
 }
 
-// Override / Ganti fungsi alert standar jika ada script lain yang memanggil alert
 window.alert = function(msg) {
     showToast(msg, 'error');
 };
@@ -65,19 +60,19 @@ function generateOrderID() {
     return `TPG${dateStr}${randomNum}${randomLetters}`;
 }
 
-// Function Salin Format ke Clipboard dengan Proteksi Enter Telegram
+// Function Salin Format ke Clipboard (Dual Mode: iOS & Android Safe)
 function copyFormatToClipboard(textFormat) {
-    // Normalisasi enter agar kompatibel penuh dengan Telegram & WhatsApp
-    const normalizedText = textFormat.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+    // Normalisasi enter agar konsisten di semua platform
+    const formattedText = textFormat.replace(/\r?\n/g, "\r\n");
 
     if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(normalizedText).then(() => {
+        navigator.clipboard.writeText(formattedText).then(() => {
             showToast("Format order disalin! Silakan paste di bot Telegram.", 'success');
         }).catch(() => {
-            fallbackCopyText(normalizedText);
+            fallbackCopyText(formattedText);
         });
     } else {
-        fallbackCopyText(normalizedText);
+        fallbackCopyText(formattedText);
     }
 }
 
@@ -85,7 +80,7 @@ function fallbackCopyText(text) {
     const textArea = document.createElement("textarea");
     textArea.value = text;
     
-    // Gunakan gaya khusus agar browser menjaga formatting enter murni
+    // Trik Styling khusus WebKit agar Line Break Tidak Di-strip oleh Telegram Webview
     textArea.style.position = "fixed";
     textArea.style.top = "0";
     textArea.style.left = "0";
@@ -96,11 +91,32 @@ function fallbackCopyText(text) {
     textArea.style.outline = "none";
     textArea.style.boxShadow = "none";
     textArea.style.background = "transparent";
-    textArea.setAttribute("readonly", "");
-
+    
     document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
+
+    // Khusus Perangkat iOS (iPhone / iPad)
+    if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+        const editable = textArea.contentEditable;
+        const readOnly = textArea.readOnly;
+
+        textArea.contentEditable = 'true';
+        textArea.readOnly = 'false';
+
+        const range = document.createRange();
+        range.selectNodeContents(textArea);
+
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+
+        textArea.contentEditable = editable;
+        textArea.readOnly = readOnly;
+    } else {
+        // Untuk Perangkat Non-iOS (Android, Windows, Mac)
+        textArea.focus();
+        textArea.select();
+    }
 
     try {
         document.execCommand('copy');
