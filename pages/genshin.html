@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genshin Impact Via Login - TOPUPGRAM</title>
+    <!-- Telegram WebApp SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Resource Data khusus Genshin & Payment -->
+    <script src="../data/pricelist-genshin.js"></script>
+    <script src="../data/payment-methods.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        html { scroll-behavior: smooth; }
+        .tap-effect { transition: transform 0.1s ease, box-shadow 0.1s ease; }
+        .tap-effect:active { transform: scale(0.96); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 pb-12 font-sans select-none">
+
+    <!-- Header / Nav Back -->
+    <header class="sticky top-0 bg-white border-b border-pink-100 p-4 flex items-center gap-3 z-10 shadow-sm">
+        <a href="../index.html" class="p-1 text-slate-600 hover:text-pink-600 tap-effect">
+            <i data-lucide="arrow-left" class="w-6 h-6"></i>
+        </a>
+        <div>
+            <h1 class="font-bold text-base text-slate-800 leading-tight">Genshin Impact Via Login</h1>
+            <p class="text-[10px] text-pink-600 font-semibold">Proses 5-30 Menit (Maks 1 Jam)</p>
+        </div>
+    </header>
+
+    <main class="max-w-md mx-auto p-4 space-y-5">
+        
+        <!-- FORM DATA AKUN -->
+        <section id="section-account" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+            <h2 class="font-bold text-sm text-pink-600 flex items-center gap-1.5">
+                <i data-lucide="user-check" class="w-4 h-4"></i> Data Account Genshin
+            </h2>
+
+            <div id="field-login-box">
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Login Method <span class="text-rose-500">*</span></label>
+                <select id="login-method" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl bg-white focus:border-pink-500 outline-none tap-effect transition">
+                    <option value="" disabled selected>-- Pilih Login Method --</option>
+                    <option value="Google Account">Google Account</option>
+                    <option value="Mihoyo Account">Mihoyo Account</option>
+                </select>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+                <div id="field-email-box">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Email / No HP <span class="text-rose-500">*</span></label>
+                    <input type="text" id="acc-email" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none transition" placeholder="user@gmail.com">
+                </div>
+                <div id="field-pass-box">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Password <span class="text-rose-500">*</span></label>
+                    <input type="text" id="acc-pass" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none transition" placeholder="Pass123">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+                <div id="field-server-box">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Server <span class="text-rose-500">*</span></label>
+                    <select id="acc-server" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl bg-white focus:border-pink-500 outline-none tap-effect transition">
+                        <option value="" disabled selected>-- Pilih Server --</option>
+                        <option value="Asia">Asia</option>
+                        <option value="America">America</option>
+                        <option value="Europe">Europe</option>
+                        <option value="TW/HK/MO">TW/HK/MO</option>
+                    </select>
+                </div>
+                <div id="field-uid-box">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Nickname / UID <span class="text-rose-500">*</span></label>
+                    <input type="text" id="acc-uid" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none transition" placeholder="Traveler / 800000000">
+                </div>
+            </div>
+        </section>
+
+        <!-- KATEGORI & NOMINAL PRODUK -->
+        <section id="section-products" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-4">
+            <div class="flex items-center justify-between">
+                <h2 class="font-bold text-sm text-pink-600 flex items-center gap-1.5">
+                    <i data-lucide="shopping-bag" class="w-4 h-4"></i> Pilih Nominal <span class="text-rose-500">*</span>
+                </h2>
+                <span class="text-[10px] text-pink-600 bg-pink-50 font-bold px-2 py-0.5 rounded-full">Bebas Mix Nominal</span>
+            </div>
+
+            <!-- TAB KATEGORI -->
+            <div class="flex gap-1.5 border-b border-slate-100 pb-2 overflow-x-auto no-scrollbar">
+                <button type="button" onclick="switchCategory('genesis-crystal')" id="tab-genesis-crystal" class="tab-btn tap-effect px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-pink-500 text-white shadow-sm">
+                    Genesis Crystal
+                </button>
+                <button type="button" onclick="switchCategory('monthly')" id="tab-monthly" class="tab-btn tap-effect px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    Monthly / Welkin
+                </button>
+                <button type="button" onclick="switchCategory('battle-pass')" id="tab-battle-pass" class="tab-btn tap-effect px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    Battle Pass
+                </button>
+            </div>
+
+            <!-- GRID PRODUK 2 KOLOM -->
+            <div id="item-grid" class="grid grid-cols-2 gap-2.5"></div>
+
+            <!-- RINGKASAN PRODUK TERPILIH -->
+            <div id="selected-items-box" class="hidden pt-3 border-t border-slate-100 space-y-2">
+                <div class="text-[11px] font-bold text-slate-500">List Produk Terpilih:</div>
+                <div id="selected-items-list" class="space-y-1.5 text-xs"></div>
+                <div class="pt-2 flex items-center justify-between font-extrabold text-xs text-slate-800">
+                    <span>Total Harga:</span>
+                    <span id="total-price-display" class="text-pink-600 text-sm">Rp 0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PILIH PEMBAYARAN -->
+        <section id="section-payment" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+            <h2 class="font-bold text-sm text-pink-600 flex items-center gap-1.5">
+                <i data-lucide="wallet" class="w-4 h-4"></i> Metode Pembayaran <span class="text-rose-500">*</span>
+            </h2>
+            <div id="payment-grid" class="grid grid-cols-2 gap-2"></div>
+        </section>
+
+        <!-- ACTION BUTTONS -->
+        <section class="space-y-2 pt-2">
+            <button onclick="handleGenerateFormat()" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-pink-200 text-xs flex items-center justify-center gap-2 transition tap-effect">
+                <i data-lucide="copy" class="w-4 h-4"></i> Salin Format Order
+            </button>
+            
+            <button onclick="closeTelegramWebApp()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition tap-effect">
+                <i data-lucide="corner-down-left" class="w-4 h-4"></i> Kembali ke Bot
+            </button>
+        </section>
+
+    </main>
+
+    <script>
+        let currentCategory = 'genesis-crystal';
+        let selectedItems = []; 
+        let selectedPayment = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            renderCategoryItems();
+            loadPayments();
+        });
+
+        // SWITCH TAB KATEGORI
+        function switchCategory(catKey) {
+            currentCategory = catKey;
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = 'tab-btn tap-effect px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-slate-100 text-slate-600 hover:bg-slate-200';
+            });
+            const activeTab = document.getElementById(`tab-${catKey}`);
+            if (activeTab) {
+                activeTab.className = 'tab-btn tap-effect px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-pink-500 text-white shadow-sm';
+            }
+
+            renderCategoryItems();
+        }
+
+        // RENDER GRID PRODUK
+        function renderCategoryItems() {
+            const container = document.getElementById('item-grid');
+            container.innerHTML = '';
+            
+            const items = GENSHIN_PRICELIST[currentCategory] || [];
+
+            items.forEach(item => {
+                const isChecked = selectedItems.some(i => i.id === item.id);
+                
+                const card = document.createElement('label');
+                card.className = `p-3 border rounded-xl cursor-pointer transition flex flex-col justify-between bg-white relative select-none tap-effect ${
+                    isChecked ? 'border-pink-500 bg-pink-50/50 ring-1 ring-pink-400' : 'border-slate-200 hover:border-pink-300'
+                }`;
+                
+                card.innerHTML = `
+                    <div class="flex items-start justify-between gap-1 mb-2">
+                        <span class="text-xs font-bold text-slate-800 leading-tight">${item.name}</span>
+                        <input type="checkbox" ${isChecked ? 'checked' : ''} class="w-4 h-4 text-pink-600 rounded border-slate-300 accent-pink-500 flex-shrink-0 mt-0.5" onchange="toggleItemSelect('${item.id}', this.checked)">
+                    </div>
+                    <div class="text-xs font-extrabold text-pink-600">Rp ${item.price.toLocaleString('id-ID')}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // TOGGLE PRODUK
+        function toggleItemSelect(itemId, isChecked) {
+            let foundItem = null;
+            Object.keys(GENSHIN_PRICELIST).forEach(cat => {
+                const match = GENSHIN_PRICELIST[cat].find(i => i.id === itemId);
+                if (match) foundItem = match;
+            });
+
+            if (!foundItem) return;
+
+            if (isChecked) {
+                if (!selectedItems.some(i => i.id === itemId)) {
+                    selectedItems.push(foundItem);
+                }
+            } else {
+                selectedItems = selectedItems.filter(i => i.id !== itemId);
+            }
+
+            renderCategoryItems();
+            updateSelectedSummary();
+
+            if (isChecked && selectedItems.length === 1) {
+                document.getElementById('selected-items-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        // UPDATE RINGKASAN LIST
+        function updateSelectedSummary() {
+            const box = document.getElementById('selected-items-box');
+            const listContainer = document.getElementById('selected-items-list');
+            const priceDisplay = document.getElementById('total-price-display');
+
+            if (selectedItems.length === 0) {
+                box.classList.add('hidden');
+                return;
+            }
+
+            box.classList.remove('hidden');
+            listContainer.innerHTML = '';
+
+            let total = 0;
+            selectedItems.forEach(item => {
+                total += item.price;
+                const row = document.createElement('div');
+                row.className = 'flex justify-between items-center text-slate-700 bg-pink-50/70 px-2.5 py-1.5 rounded-lg border border-pink-100';
+                row.innerHTML = `
+                    <span class="font-medium text-xs">• ${item.name}</span>
+                    <span class="font-bold text-pink-700 text-xs">Rp ${item.price.toLocaleString('id-ID')}</span>
+                `;
+                listContainer.appendChild(row);
+            });
+
+            priceDisplay.innerText = `Rp ${total.toLocaleString('id-ID')}`;
+        }
+
+        // LOAD METODE PEMBAYARAN
+        function loadPayments() {
+            const container = document.getElementById('payment-grid');
+            PAYMENT_METHODS.forEach(pm => {
+                const card = document.createElement('div');
+                card.className = 'p-2.5 border border-slate-200 rounded-xl cursor-pointer hover:border-pink-400 text-center pay-card transition bg-white tap-effect';
+                card.onclick = () => {
+                    document.querySelectorAll('.pay-card').forEach(c => c.classList.remove('border-pink-500', 'bg-pink-50', 'ring-2', 'ring-pink-400'));
+                    card.classList.add('border-pink-500', 'bg-pink-50', 'ring-2', 'ring-pink-400');
+                    selectedPayment = pm.name;
+                };
+                card.innerHTML = `<div class="text-xs font-bold text-slate-700">${pm.name}</div>`;
+                container.appendChild(card);
+            });
+        }
+
+        // AUTO-SCROLL VALIDASI DENGAN HIGHLIGHT MERAH & TOAST iOS
+        function highlightAndScroll(elementId, boxId, alertMsg) {
+            const el = document.getElementById(elementId);
+            const box = document.getElementById(boxId);
+            
+            showToast(alertMsg, 'error');
+            box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            el.focus();
+            
+            el.classList.add('border-rose-500', 'ring-2', 'ring-rose-200');
+            setTimeout(() => {
+                el.classList.remove('border-rose-500', 'ring-2', 'ring-rose-200');
+            }, 2000);
+        }
+
+        // VALIDASI & SALIN FORMAT ORDER
+        function handleGenerateFormat() {
+            const loginInput = document.getElementById('login-method');
+            const emailInput = document.getElementById('acc-email');
+            const passInput = document.getElementById('acc-pass');
+            const serverInput = document.getElementById('acc-server');
+            const uidInput = document.getElementById('acc-uid');
+
+            const loginMethod = loginInput.value;
+            const email = emailInput.value.trim();
+            const pass = passInput.value.trim();
+            const server = serverInput.value;
+            const uid = uidInput.value.trim();
+
+            if (!loginMethod) {
+                highlightAndScroll('login-method', 'section-account', "⚠️ Harap pilih Login Method terlebih dahulu!");
+                return;
+            }
+            if (!email) {
+                highlightAndScroll('acc-email', 'section-account', "⚠️ Harap isi Email / No HP terlebih dahulu!");
+                return;
+            }
+            if (!pass) {
+                highlightAndScroll('acc-pass', 'section-account', "⚠️️ Harap isi Password terlebih dahulu!");
+                return;
+            }
+            if (!server) {
+                highlightAndScroll('acc-server', 'section-account', "⚠️ Harap pilih Server terlebih dahulu!");
+                return;
+            }
+            if (!uid) {
+                highlightAndScroll('acc-uid', 'section-account', "⚠️ Harap isi Nickname / UID terlebih dahulu!");
+                return;
+            }
+            if (selectedItems.length === 0) {
+                showToast("⚠️ Silakan pilih minimal 1 nominal produk!", 'error');
+                document.getElementById('section-products').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+            if (!selectedPayment) {
+                showToast("⚠️ Silakan pilih Metode Pembayaran!", 'error');
+                document.getElementById('section-payment').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
+            let itemListText = '';
+            let totalPrice = 0;
+            selectedItems.forEach(item => {
+                itemListText += `• ${item.name} (Rp ${item.price.toLocaleString('id-ID')})\r\n`;
+                totalPrice += item.price;
+            });
+
+            const orderID = generateOrderID();
+
+            const formatPesan = 
+`🧾 ORDER TOPUPGRAM\r\n` +
+`=============================\r\n` +
+`Game: Genshin Impact Via Login\r\n` +
+`Login Method: ${loginMethod}\r\n` +
+`\r\n` +
+`📋 DATA ACCOUNT\r\n` +
+`-----------------------------\r\n` +
+`Email: ${email}\r\n` +
+`Password: ${pass}\r\n` +
+`Server: ${server}\r\n` +
+`Nickname/UID: ${uid}\r\n` +
+`\r\n` +
+`📦 DETAIL ORDER\r\n` +
+`-----------------------------\r\n` +
+`${itemListText.trim()}\r\n` +
+`\r\n` +
+`💰 Total Harga: Rp ${totalPrice.toLocaleString('id-ID')}\r\n` +
+`💳 Pembayaran: ${selectedPayment}\r\n` +
+`=============================\r\n` +
+`Order ID: ${orderID}`;
+
+            copyFormatToClipboard(formatPesan);
+        }
+    </script>
+</body>
+</html>
