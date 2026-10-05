@@ -23,7 +23,7 @@
             transform: scale(0.95);
         }
 
-        /* Continuous Running Text Animation (Tanpa Putus/Jeda) */
+        /* Continuous Running Text Animation (Ngalir Terus Tanpa Putus) */
         @keyframes marquee-continuous {
             0% { transform: translateX(0%); }
             100% { transform: translateX(-50%); }
@@ -54,21 +54,18 @@
             <p class="text-xs text-pink-100 font-medium">Pilih game favoritmu dan salin format order dengan sekali klik!</p>
         </section>
 
-        <!-- RUNNING TEXT MARQUEE INFO STATUS -->
+        <!-- RUNNING TEXT MARQUEE INFO STATUS (NGALIR CONTINUOUS) -->
         <div class="bg-white border border-pink-100 rounded-xl px-3 py-2 overflow-hidden relative shadow-xs flex items-center gap-2">
             <span class="flex-shrink-0 text-[10px] font-extrabold bg-pink-50 text-pink-600 px-2 py-0.5 rounded-md uppercase z-10">INFORMASI</span>
             
             <div class="overflow-hidden w-full relative">
                 <div class="marquee-track text-xs font-semibold text-slate-600 space-x-6">
-                    <!-- Set 1 -->
                     <span class="flex items-center gap-2">🟢 <strong class="text-emerald-600">Hijau</strong> = Ready / Open Order</span>
                     <span>•</span>
                     <span class="flex items-center gap-2">🔴 <strong class="text-rose-500">Merah</strong> = Stok Habis / Closed</span>
                     <span>•</span>
                     <span>Proses superfast 1-15 menit sesuai antrian (maks 60 menit). Subscribe @TOPUPGRAM ya!</span>
                     <span>•</span>
-
-                    <!-- Set 2 (Duplikat Seamless) -->
                     <span class="flex items-center gap-2">🟢 <strong class="text-emerald-600">Hijau</strong> = Ready / Open Order</span>
                     <span>•</span>
                     <span class="flex items-center gap-2">🔴 <strong class="text-rose-500">Merah</strong> = Stok Habis / Closed</span>
@@ -90,41 +87,48 @@
 
                 <!-- 1. Roblox Via Login -->
                 <div onclick="handleCatalogClick('robux-vlog', './pages/robux-vlog.html')" 
-                     class="card-btn bg-white border border-pink-100 rounded-2xl p-3 text-center flex flex-col items-center justify-between relative shadow-xs cursor-pointer hover:border-pink-300">
-                    <div id="dot-robux-vlog" class="absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full"></div>
+                     id="card-bg-robux-vlog"
+                     class="card-btn relative h-32 rounded-2xl p-3 text-center flex flex-col justify-end items-center overflow-hidden shadow-xs cursor-pointer bg-slate-200 bg-cover bg-center border border-pink-100">
                     
-                    <div class="w-12 h-12 rounded-xl bg-pink-50 overflow-hidden mb-2 flex items-center justify-center p-0.5">
-                        <img id="img-robux-vlog" src="./assets/images/robux.png" alt="Roblox V-Log" class="w-full h-full object-cover rounded-lg">
+                    <!-- Overlay Gelap Halus Agar Teks Terbaca -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+                    
+                    <!-- Status Dot Corner -->
+                    <div id="dot-robux-vlog" class="absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full z-10"></div>
+                    
+                    <!-- Content Text Center Bottom -->
+                    <div class="relative z-10 space-y-0.5">
+                        <span id="badge-robux-vlog" class="text-[9px] font-extrabold px-2 py-0.5 rounded-full inline-block bg-pink-500 text-white shadow-xs">Via Login</span>
+                        <span class="text-xs font-bold text-white block leading-tight drop-shadow-md">Roblox</span>
                     </div>
-                    
-                    <span id="badge-robux-vlog" class="text-[9px] font-extrabold px-2 py-0.5 rounded-full mb-1 bg-pink-100 text-pink-700">Via Login</span>
-                    <span class="text-xs font-bold text-slate-800">Roblox</span>
                 </div>
 
                 <!-- 2. Roblox VISEND -->
                 <div onclick="handleCatalogClick('robux-vsend', './pages/robux-vsend.html')" 
-                     class="card-btn bg-white border border-pink-100 rounded-2xl p-3 text-center flex flex-col items-center justify-between relative shadow-xs cursor-pointer hover:border-pink-300">
-                    <div id="dot-robux-vsend" class="absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full"></div>
+                     id="card-bg-robux-vsend"
+                     class="card-btn relative h-32 rounded-2xl p-3 text-center flex flex-col justify-end items-center overflow-hidden shadow-xs cursor-pointer bg-slate-200 bg-cover bg-center border border-pink-100">
                     
-                    <div class="w-12 h-12 rounded-xl bg-pink-50 overflow-hidden mb-2 flex items-center justify-center p-0.5">
-                        <img id="img-robux-vsend" src="./assets/images/robux.png" alt="Roblox VISEND" class="w-full h-full object-cover rounded-lg">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+                    <div id="dot-robux-vsend" class="absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full z-10"></div>
+                    
+                    <div class="relative z-10 space-y-0.5">
+                        <span id="badge-robux-vsend" class="text-[9px] font-extrabold px-2 py-0.5 rounded-full inline-block bg-pink-500 text-white shadow-xs">VISEND</span>
+                        <span class="text-xs font-bold text-white block leading-tight drop-shadow-md">Roblox</span>
                     </div>
-                    
-                    <span id="badge-robux-vsend" class="text-[9px] font-extrabold px-2 py-0.5 rounded-full mb-1 bg-pink-100 text-pink-700">VISEND</span>
-                    <span class="text-xs font-bold text-slate-800">Roblox</span>
                 </div>
 
                 <!-- 3. Heartopia Via Login -->
                 <div onclick="handleCatalogClick('heartopia', './pages/heartopia.html')" 
-                     class="card-btn bg-white border border-pink-100 rounded-2xl p-3 text-center flex flex-col items-center justify-between relative shadow-xs cursor-pointer hover:border-pink-300">
-                    <div id="dot-heartopia" class="absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full"></div>
+                     id="card-bg-heartopia"
+                     class="card-btn relative h-32 rounded-2xl p-3 text-center flex flex-col justify-end items-center overflow-hidden shadow-xs cursor-pointer bg-slate-200 bg-cover bg-center border border-pink-100">
                     
-                    <div class="w-12 h-12 rounded-xl bg-pink-50 overflow-hidden mb-2 flex items-center justify-center p-0.5">
-                        <img id="img-heartopia" src="./assets/images/heartopia.png" alt="Heartopia" class="w-full h-full object-cover rounded-lg">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+                    <div id="dot-heartopia" class="absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full z-10"></div>
+                    
+                    <div class="relative z-10 space-y-0.5">
+                        <span id="badge-heartopia" class="text-[9px] font-extrabold px-2 py-0.5 rounded-full inline-block bg-pink-500 text-white shadow-xs">Via Login</span>
+                        <span class="text-xs font-bold text-white block leading-tight drop-shadow-md">Heartopia</span>
                     </div>
-                    
-                    <span id="badge-heartopia" class="text-[9px] font-extrabold px-2 py-0.5 rounded-full mb-1 bg-pink-100 text-pink-700">Via Login</span>
-                    <span class="text-xs font-bold text-slate-800">Heartopia</span>
                 </div>
 
             </div>
@@ -141,40 +145,43 @@
 
                 <!-- Genshin Impact -->
                 <div onclick="handleCatalogClick('genshin', './pages/genshin.html')" 
-                     class="card-btn bg-white border border-slate-100 rounded-2xl p-3 flex items-center gap-3 relative shadow-xs cursor-pointer hover:border-pink-300">
-                    <div id="dot-genshin" class="absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full"></div>
-                    <div class="w-10 h-10 rounded-xl bg-purple-50 overflow-hidden flex-shrink-0 flex items-center justify-center p-0.5">
-                        <img id="img-genshin" src="./assets/images/genshin.png" alt="Genshin Impact" class="w-full h-full object-cover rounded-lg">
-                    </div>
-                    <div>
-                        <span id="badge-genshin" class="text-[8px] font-extrabold px-1.5 py-0.2 rounded-full block w-max mb-0.5 bg-pink-100 text-pink-700">Via Login</span>
-                        <span class="text-xs font-bold text-slate-800 block leading-tight">Genshin Impact</span>
+                     id="card-bg-genshin"
+                     class="card-btn relative h-24 rounded-2xl p-3 flex flex-col justify-end overflow-hidden shadow-xs cursor-pointer bg-slate-200 bg-cover bg-center border border-slate-100">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+                    <div id="dot-genshin" class="absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full z-10"></div>
+                    
+                    <div class="relative z-10">
+                        <span id="badge-genshin" class="text-[8px] font-extrabold px-1.5 py-0.2 rounded-full inline-block mb-0.5 bg-pink-500 text-white">Via Login</span>
+                        <span class="text-xs font-bold text-white block leading-tight drop-shadow-md">Genshin Impact</span>
                     </div>
                 </div>
 
                 <!-- Honkai: Star Rail (HSR) -->
                 <div onclick="handleCatalogClick('hsr', './pages/hsr.html')" 
-                     class="card-btn bg-white border border-slate-100 rounded-2xl p-3 flex items-center gap-3 relative shadow-xs cursor-pointer hover:border-pink-300">
-                    <div id="dot-hsr" class="absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full"></div>
-                    <div class="w-10 h-10 rounded-xl bg-indigo-50 overflow-hidden flex-shrink-0 flex items-center justify-center p-0.5">
-                        <img id="img-hsr" src="./assets/images/hsr.png" alt="Honkai: Star Rail" class="w-full h-full object-cover rounded-lg">
-                    </div>
-                    <div>
-                        <span id="badge-hsr" class="text-[8px] font-extrabold px-1.5 py-0.2 rounded-full block w-max mb-0.5 bg-pink-100 text-pink-700">Via Login</span>
-                        <span class="text-xs font-bold text-slate-800 block leading-tight">Honkai: Star Rail</span>
+                     id="card-bg-hsr"
+                     class="card-btn relative h-24 rounded-2xl p-3 flex flex-col justify-end overflow-hidden shadow-xs cursor-pointer bg-slate-200 bg-cover bg-center border border-slate-100">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+                    <div id="dot-hsr" class="absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full z-10"></div>
+                    
+                    <div class="relative z-10">
+                        <span id="badge-hsr" class="text-[8px] font-extrabold px-1.5 py-0.2 rounded-full inline-block mb-0.5 bg-pink-500 text-white">Via Login</span>
+                        <span class="text-xs font-bold text-white block leading-tight drop-shadow-md">Honkai: Star Rail</span>
                     </div>
                 </div>
 
                 <!-- NTE (Neverness to Everness) -->
                 <div onclick="handleCatalogClick('nte', './pages/nte.html')" 
-                     class="card-btn bg-white border border-slate-100 rounded-2xl p-3 flex items-center gap-3 relative shadow-xs cursor-pointer hover:border-pink-300">
-                    <div id="dot-nte" class="absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full"></div>
-                    <div class="w-10 h-10 rounded-xl bg-slate-100 overflow-hidden flex-shrink-0 flex items-center justify-center p-0.5">
-                        <img id="img-nte" src="./assets/images/nte.png" alt="NTE" class="w-full h-full object-cover rounded-lg">
-                    </div>
-                    <div>
-                        <span id="badge-nte" class="text-[8px] font-extrabold px-1.5 py-0.2 rounded-full block w-max mb-0.5 bg-pink-100 text-pink-700">Via Login</span>
-                        <span class="text-xs font-bold text-slate-800 block leading-tight">NTE</span>
+                     id="card-bg-nte"
+                     class="card-btn relative h-24 rounded-2xl p-3 flex flex-col justify-end overflow-hidden shadow-xs cursor-pointer bg-slate-200 bg-cover bg-center border border-slate-100">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+                    <div id="dot-nte" class="absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full z-10"></div>
+                    
+                    <div class="relative z-10">
+                        <span id="badge-nte" class="text-[8px] font-extrabold px-1.5 py-0.2 rounded-full inline-block mb-0.5 bg-pink-500 text-white">Via Login</span>
+                        <span class="text-xs font-bold text-white block leading-tight drop-shadow-md">NTE</span>
                     </div>
                 </div>
 
@@ -194,25 +201,26 @@
             Object.keys(CATALOG_STATUS).forEach(key => {
                 const item = CATALOG_STATUS[key];
                 
+                const cardBg = document.getElementById(`card-bg-${key}`);
                 const dot = document.getElementById(`dot-${key}`);
                 const badge = document.getElementById(`badge-${key}`);
-                const img = document.getElementById(`img-${key}`);
 
-                if (img && item.image) {
-                    img.src = item.image;
+                // Set Gambar Latar Kartu (Background Image)
+                if (cardBg && item.image) {
+                    cardBg.style.backgroundImage = `url('${item.image}')`;
                 }
 
                 if (item.isOpen) {
-                    if (dot) dot.className = 'absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-emerald-200 animate-pulse';
+                    if (dot) dot.className = 'absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-emerald-200/80 animate-pulse z-10';
                     if (badge) {
                         badge.innerText = item.badgeText || 'Via Login';
-                        badge.className = 'text-[9px] font-extrabold px-2 py-0.5 rounded-full mb-1 bg-pink-100 text-pink-700';
+                        badge.className = 'text-[9px] font-extrabold px-2 py-0.5 rounded-full mb-0.5 bg-pink-500 text-white shadow-xs';
                     }
                 } else {
-                    if (dot) dot.className = 'absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full bg-rose-500 ring-2 ring-rose-200';
+                    if (dot) dot.className = 'absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full bg-rose-500 ring-2 ring-rose-200/80 z-10';
                     if (badge) {
-                        badge.innerText = 'Habis / Closed';
-                        badge.className = 'text-[9px] font-extrabold px-2 py-0.5 rounded-full mb-1 bg-rose-100 text-rose-600';
+                        badge.innerText = 'Closed';
+                        badge.className = 'text-[9px] font-extrabold px-2 py-0.5 rounded-full mb-0.5 bg-rose-500 text-white shadow-xs';
                     }
                 }
             });
