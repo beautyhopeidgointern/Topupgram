@@ -49,13 +49,20 @@ function fallbackCopyText(text) {
     document.body.removeChild(textArea);
 }
 
-// Function Tutup Telegram Mini App & Kembali ke @topupgrambot
+// Function Kembali ke @topupgrambot
 function closeTelegramWebApp() {
+    const botUrl = "https://t.me/topupgrambot";
+
     if (window.Telegram && window.Telegram.WebApp) {
-        // Tutup Mini App dan kembali ke room chat bot
-        window.Telegram.WebApp.close();
+        // Jika didukung Telegram SDK, buka link bot lalu tutup Mini App
+        try {
+            window.Telegram.WebApp.openTelegramLink(botUrl);
+            window.Telegram.WebApp.close();
+        } catch (e) {
+            window.location.href = botUrl;
+        }
     } else {
-        // Jika dibuka via browser biasa, arahkan langsung ke link Telegram Bot
-        window.location.href = "https://t.me/topupgrambot";
+        // Fallback jika dibuka dari browser biasa
+        window.location.href = botUrl;
     }
 }
