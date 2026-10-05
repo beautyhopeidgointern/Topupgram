@@ -8,8 +8,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="./data/catalog-status.js"></script>
-    <script src="./assets/js/main.js"></script>
+    
+    <!-- Script dengan Query Versioning untuk Mencegah Cache Telegram -->
+    <script src="./data/catalog-status.js?v=1.1"></script>
+    <script src="./assets/js/main.js?v=1.1"></script>
+    
     <style>
         /* Proteksi Anti Long-Press / Tekan Lama */
         * {
@@ -70,12 +73,12 @@
                     <span>Jam Operasional: pukul 10.00 — 21.50 WIB. Estimasi fast 1-15 menit sesuai antrian (maks 60 menit). Subscribe @TOPUPGRAM ya!</span>
                     <span>•</span>
 
-                    <!-- Set 2 (Duplikat agar terus mengalir) -->
+                    <!-- Set 2 (Duplikat agar mengalir tanpa jeda) -->
                     <span class="flex items-center gap-2">🟢 <strong class="text-emerald-600">Hijau</strong> = Ready / Open Order</span>
                     <span>•</span>
                     <span class="flex items-center gap-2">🔴 <strong class="text-rose-500">Merah</strong> = Stok Habis / Closed</span>
                     <span>•</span>
-                    <span>Proses superfast 1-15 menit sesuai antrian (maks 60 menit). Subscribe @TOPUPGRAM ya!</span>
+                    <span>Jam Operasional: pukul 10.00 — 21.50 WIB. Estimasi fast 1-15 menit sesuai antrian (maks 60 menit). Subscribe @TOPUPGRAM ya!</span>
                     <span>•</span>
                 </div>
             </div>
