@@ -15,7 +15,7 @@ const CATALOG_STATUS = {
         image: "./assets/images/heartopia.jpg" 
     },
     "genshin": { 
-        isOpen: false, 
+        isOpen: true, 
         badgeText: "Via Login", 
         image: "./assets/images/genshin.jpg" 
     },
