@@ -1,33 +1,32 @@
-// Atur status Open (true) atau Closed (false) untuk tiap katalog di sini:
 const CATALOG_STATUS = {
     "robux-vlog": { 
         isOpen: true, 
         badgeText: "Via Login", 
-        image: "https://faqs.uwu.ai/assets/images/gallery05/aa7a759c_original.jpg?v=15845db8" 
+        image: "./assets/images/robux.jpg" 
     },
     "robux-vsend": { 
         isOpen: true, 
         badgeText: "VISEND", 
-        image: "https://faqs.uwu.ai/assets/images/gallery05/83da53bf_original.jpg?v=15845db8" 
+        image: "./assets/images/robux.jpg" 
     },
     "heartopia": { 
         isOpen: true, 
         badgeText: "Via Login", 
-        image: "https://faqs.uwu.ai/assets/images/gallery05/781a7dda_original.jpg?v=15845db8" 
+        image: "./assets/images/heartopia.jpg" 
     },
     "genshin": { 
         isOpen: false, 
         badgeText: "Via Login", 
-        image: "https://faqs.uwu.ai/assets/images/gallery05/e0f75191_original.jpg?v=15845db8" 
+        image: "./assets/images/genshin.jpg" 
     },
     "hsr": { 
         isOpen: false, 
         badgeText: "Via Login", 
-        image: "https://faqs.uwu.ai/assets/images/gallery05/a9249633_original.jpg?v=15845db8" 
+        image: "./assets/images/hsr.jpg" 
     },
     "nte": { 
         isOpen: false, 
         badgeText: "Via Login", 
-        image: "https://faqs.uwu.ai/assets/images/gallery05/0cbdfa8c_original.jpg?v=15845db8" 
+        image: "./assets/images/nte.jpg" 
     }
 };
