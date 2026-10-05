@@ -1,13 +1,18 @@
-const ROBUX_VSEND_PRICELIST = [
-    { id: "rvs-50", name: "50 Robux", robuxAmount: 50, price: 8750 },
-    { id: "rvs-100", name: "100 Robux", robuxAmount: 100, price: 17500 },
-    { id: "rvs-200", name: "200 Robux", robuxAmount: 200, price: 35000 },
-    { id: "rvs-300", name: "300 Robux", robuxAmount: 300, price: 52500 },
-    { id: "rvs-400", name: "400 Robux", robuxAmount: 400, price: 70000 },
-    { id: "rvs-500", name: "500 Robux", robuxAmount: 500, price: 87500 },
-    { id: "rvs-600", name: "600 Robux", robuxAmount: 600, price: 105000 },
-    { id: "rvs-700", name: "700 Robux", robuxAmount: 700, price: 122500 },
-    { id: "rvs-800", name: "800 Robux", robuxAmount: 800, price: 140000 },
-    { id: "rvs-900", name: "900 Robux", robuxAmount: 900, price: 157500 },
-    { id: "rvs-1000", name: "1.000 Robux", robuxAmount: 1000, price: 175000 }
-];
+// Cukup atur harga dasar per 100 Robux di sini!
+const ROBUX_BASE_RATE_PER_100 = 17500;
+
+// Daftar nominal Robux yang ingin ditampilkan otomatis di UI
+const ROBUX_NOMINAL_LIST = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+
+// Fungsi otomatis menghitung daftar produk berdasarkan rate di atas
+function generateRobuxPricelist() {
+    return ROBUX_NOMINAL_LIST.map(amount => {
+        const calculatedPrice = (amount / 100) * ROBUX_BASE_RATE_PER_100;
+        return {
+            id: `rvs-${amount}`,
+            name: `${amount.toLocaleString('id-ID')} Robux`,
+            robuxAmount: amount,
+            price: calculatedPrice
+        };
+    });
+}
