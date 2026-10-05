@@ -16,12 +16,12 @@ function generateOrderID() {
     return `TPG${dateStr}${randomNum}${randomLetters}`;
 }
 
-// Function Salin Format ke Clipboard
+// Function Salin Format ke Clipboard dengan Proteksi Line Break
 function copyFormatToClipboard(textFormat) {
     if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(textFormat).then(() => {
-            alert("✅ Format order berhasil disalin!\nSilakan klik 'Kembali ke Bot' dan paste pesan di chat bot.");
-        }).catch(err => {
+            alert("✅ Format order berhasil disalin!\r\nSilakan klik 'Kembali ke Bot' dan tempel (paste) pesan di chat bot.");
+        }).catch(() => {
             fallbackCopyText(textFormat);
         });
     } else {
@@ -32,12 +32,17 @@ function copyFormatToClipboard(textFormat) {
 function fallbackCopyText(text) {
     const textArea = document.createElement("textarea");
     textArea.value = text;
+    // Mencegah autosnap formatting
+    textArea.style.position = "fixed";
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.opacity = "0";
     document.body.appendChild(textArea);
     textArea.focus();
     textArea.select();
     try {
         document.execCommand('copy');
-        alert("✅ Format order berhasil disalin!\nSilakan klik 'Kembali ke Bot' dan paste pesan di chat bot.");
+        alert("✅ Format order berhasil disalin!\r\nSilakan klik 'Kembali ke Bot' dan tempel (paste) pesan di chat bot.");
     } catch (err) {
         alert("Gagal menyalin format secara otomatis. Silakan salin manual.");
     }
