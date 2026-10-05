@@ -30,7 +30,7 @@
             </h2>
 
             <div>
-                <label class="block text-xs font-semibold text-slate-600 mb-1">Login Method</label>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Login Method <span class="text-rose-500">*</span></label>
                 <select id="login-method" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl bg-white focus:border-pink-500 outline-none">
                     <option value="Google Account">Google Account</option>
                     <option value="Facebook Account">Facebook Account</option>
@@ -39,18 +39,18 @@
 
             <div class="grid grid-cols-2 gap-2">
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Email / No HP</label>
-                    <input type="text" id="acc-email" required class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none" placeholder="user@gmail.com">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Email / No HP <span class="text-rose-500">*</span></label>
+                    <input type="text" id="acc-email" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none" placeholder="user@gmail.com">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Password</label>
-                    <input type="text" id="acc-pass" required class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none" placeholder="Pass123">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Password <span class="text-rose-500">*</span></label>
+                    <input type="text" id="acc-pass" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none" placeholder="Pass123">
                 </div>
             </div>
 
             <div class="grid grid-cols-2 gap-2">
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">Server</label>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Server <span class="text-rose-500">*</span></label>
                     <select id="acc-server" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl bg-white focus:border-pink-500 outline-none">
                         <option value="SEA">SEA</option>
                         <option value="Asia">Asia</option>
@@ -59,35 +59,50 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">UID / Nickname</label>
-                    <input type="text" id="acc-uid" required class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none" placeholder="82sk8jn92">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">UID / Nickname <span class="text-rose-500">*</span></label>
+                    <input type="text" id="acc-uid" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none" placeholder="82sk8jn92">
                 </div>
             </div>
         </section>
 
-        <!-- Pilih Items -->
+        <!-- Pilih Items (CHECKBOX MULTI SELECT) -->
         <section class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-3">
-            <h2 class="font-bold text-sm text-pink-600 flex items-center gap-1.5">
-                <i data-lucide="shopping-bag" class="w-4 h-4"></i> Pilih Nominal Produk
-            </h2>
-            <div id="item-grid" class="grid grid-cols-2 gap-2"></div>
+            <div class="flex items-center justify-between">
+                <h2 class="font-bold text-sm text-pink-600 flex items-center gap-1.5">
+                    <i data-lucide="shopping-bag" class="w-4 h-4"></i> Pilih Nominal (Bisa Pilih >1) <span class="text-rose-500">*</span>
+                </h2>
+                <span class="text-[10px] text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full font-medium">Bisa Mix Produk</span>
+            </div>
+
+            <!-- Grid Checkbox Item -->
+            <div id="item-grid" class="space-y-2"></div>
+
+            <!-- List Item Terpilih Ringkasan -->
+            <div id="selected-items-box" class="hidden pt-3 border-t border-slate-100 space-y-1.5">
+                <div class="text-[11px] font-bold text-slate-500">Produk Terpilih:</div>
+                <div id="selected-items-list" class="space-y-1 text-xs"></div>
+                <div class="pt-2 flex items-center justify-between font-extrabold text-xs text-slate-800">
+                    <span>Total Harga:</span>
+                    <span id="total-price-display" class="text-pink-600 text-sm">Rp 0</span>
+                </div>
+            </div>
         </section>
 
         <!-- Pilih Pembayaran -->
         <section class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-3">
             <h2 class="font-bold text-sm text-pink-600 flex items-center gap-1.5">
-                <i data-lucide="wallet" class="w-4 h-4"></i> Metode Pembayaran
+                <i data-lucide="wallet" class="w-4 h-4"></i> Metode Pembayaran <span class="text-rose-500">*</span>
             </h2>
             <div id="payment-grid" class="grid grid-cols-2 gap-2"></div>
         </section>
 
         <!-- Action Buttons -->
         <section class="space-y-2 pt-2">
-            <button onclick="handleGenerateFormat()" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-pink-200 text-xs flex items-center justify-center gap-2">
+            <button onclick="handleGenerateFormat()" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-pink-200 text-xs flex items-center justify-center gap-2 transition active:scale-95">
                 <i data-lucide="copy" class="w-4 h-4"></i> Salin Format Order
             </button>
             
-            <button onclick="closeTelegramWebApp()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2">
+            <button onclick="closeTelegramWebApp()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition">
                 <i data-lucide="corner-down-left" class="w-4 h-4"></i> Kembali ke Bot
             </button>
         </section>
@@ -95,7 +110,7 @@
     </main>
 
     <script>
-        let selectedItem = null;
+        let selectedItems = []; // Menyimpan array item yang dicentang
         let selectedPayment = null;
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -104,33 +119,74 @@
             loadPayments();
         });
 
+        // LOAD LIST ITEM PAKAI CHECKBOX
         function loadItems() {
             const container = document.getElementById('item-grid');
             const items = PRICE_LIST["heartopia"] || [];
-            items.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-pink-400 text-center item-card transition';
-                card.onclick = () => {
-                    document.querySelectorAll('.item-card').forEach(c => c.classList.remove('border-pink-500', 'bg-pink-50'));
-                    card.classList.add('border-pink-500', 'bg-pink-50');
-                    selectedItem = item;
-                };
-                card.innerHTML = `
-                    <div class="text-xs font-bold text-slate-800">${item.name}</div>
-                    <div class="text-[11px] font-extrabold text-pink-600">Rp ${item.price.toLocaleString('id-ID')}</div>
+            
+            items.forEach((item, index) => {
+                const label = document.createElement('label');
+                label.className = 'flex items-center justify-between p-3 border border-slate-200 rounded-xl cursor-pointer hover:border-pink-300 item-checkbox-card transition bg-white select-none';
+                label.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <input type="checkbox" class="w-4 h-4 text-pink-600 rounded border-slate-300 focus:ring-pink-500 accent-pink-500" onchange="toggleItemSelect(${index}, this.checked)">
+                        <span class="text-xs font-bold text-slate-700">${item.name}</span>
+                    </div>
+                    <span class="text-xs font-extrabold text-pink-600">Rp ${item.price.toLocaleString('id-ID')}</span>
                 `;
-                container.appendChild(card);
+                container.appendChild(label);
             });
         }
 
+        // FUNGSI TOGGLE PILIH ITEM
+        function toggleItemSelect(index, isChecked) {
+            const item = PRICE_LIST["heartopia"][index];
+            if (isChecked) {
+                selectedItems.push(item);
+            } else {
+                selectedItems = selectedItems.filter(i => i.id !== item.id);
+            }
+            updateSelectedItemsUI();
+        }
+
+        // UPDATE LIST DITAMPILKAN DI BAWAH & SUM TOTAL
+        function updateSelectedItemsUI() {
+            const box = document.getElementById('selected-items-box');
+            const listContainer = document.getElementById('selected-items-list');
+            const priceDisplay = document.getElementById('total-price-display');
+
+            if (selectedItems.length === 0) {
+                box.classList.add('hidden');
+                return;
+            }
+
+            box.classList.remove('hidden');
+            listContainer.innerHTML = '';
+            
+            let total = 0;
+            selectedItems.forEach(item => {
+                total += item.price;
+                const row = document.createElement('div');
+                row.className = 'flex justify-between items-center text-slate-600 bg-pink-50/60 px-2.5 py-1.5 rounded-lg border border-pink-100';
+                row.innerHTML = `
+                    <span class="font-medium">• ${item.name}</span>
+                    <span class="font-bold text-pink-700">Rp ${item.price.toLocaleString('id-ID')}</span>
+                `;
+                listContainer.appendChild(row);
+            });
+
+            priceDisplay.innerText = `Rp ${total.toLocaleString('id-ID')}`;
+        }
+
+        // LOAD METHOD PEMBAYARAN
         function loadPayments() {
             const container = document.getElementById('payment-grid');
             PAYMENT_METHODS.forEach(pm => {
                 const card = document.createElement('div');
-                card.className = 'p-2.5 border border-slate-200 rounded-xl cursor-pointer hover:border-pink-400 text-center pay-card transition';
+                card.className = 'p-2.5 border border-slate-200 rounded-xl cursor-pointer hover:border-pink-400 text-center pay-card transition bg-white';
                 card.onclick = () => {
-                    document.querySelectorAll('.pay-card').forEach(c => c.classList.remove('border-pink-500', 'bg-pink-50'));
-                    card.classList.add('border-pink-500', 'bg-pink-50');
+                    document.querySelectorAll('.pay-card').forEach(c => c.classList.remove('border-pink-500', 'bg-pink-50', 'ring-2', 'ring-pink-400'));
+                    card.classList.add('border-pink-500', 'bg-pink-50', 'ring-2', 'ring-pink-400');
                     selectedPayment = pm.name;
                 };
                 card.innerHTML = `<div class="text-xs font-bold text-slate-700">${pm.name}</div>`;
@@ -138,25 +194,55 @@
             });
         }
 
+        // HANDLER VALIDASI KOSONG & SALIN FORMAT
         function handleGenerateFormat() {
-            const loginMethod = document.getElementById('login-method').value;
-            const email = document.getElementById('acc-email').value || '-';
-            const pass = document.getElementById('acc-pass').value || '-';
-            const server = document.getElementById('acc-server').value;
-            const uid = document.getElementById('acc-uid').value || '-';
+            const loginMethod = document.getElementById('login-method').value.trim();
+            const emailInput = document.getElementById('acc-email');
+            const passInput = document.getElementById('acc-pass');
+            const serverInput = document.getElementById('acc-server');
+            const uidInput = document.getElementById('acc-uid');
 
-            if (!selectedItem) {
-                alert("Silakan pilih produk terlebih dahulu!");
+            const email = emailInput.value.trim();
+            const pass = passInput.value.trim();
+            const server = serverInput.value.trim();
+            const uid = uidInput.value.trim();
+
+            // VALIDASI INPUT KOSONG
+            if (!email) {
+                alert("⚠️ Harap isi Email / No HP terlebih dahulu!");
+                emailInput.focus();
+                return;
+            }
+            if (!pass) {
+                alert("⚠️ Harap isi Password terlebih dahulu!");
+                passInput.focus();
+                return;
+            }
+            if (!uid) {
+                alert("⚠️ Harap isi UID / Nickname terlebih dahulu!");
+                uidInput.focus();
+                return;
+            }
+            if (selectedItems.length === 0) {
+                alert("⚠️ Silakan centang minimal 1 nominal produk yang ingin dibeli!");
                 return;
             }
             if (!selectedPayment) {
-                alert("Silakan pilih metode pembayaran terlebih dahulu!");
+                alert("⚠️ Silakan pilih Metode Pembayaran terlebih dahulu!");
                 return;
             }
 
+            // BUAT LIST ITEM POINT (•)
+            let itemListText = '';
+            let totalPrice = 0;
+            selectedItems.forEach(item => {
+                itemListText += `• ${item.name} (Rp ${item.price.toLocaleString('id-ID')})\n`;
+                totalPrice += item.price;
+            });
+
             const orderID = generateOrderID();
 
-            // Format sesuai permintaan kamu persis:
+            // TEMPLATE FORMAT ORDER SESUAI PERMINTAAN
             const formatPesan = `ORDER TOPUPGRAM
 -----------------------
 Game: Heartopia Via Login
@@ -169,9 +255,9 @@ Server: ${server}
 UID : ${uid}
 
 ★★★ Detail Order (List Item) 
-• ${selectedItem.name} (Rp ${selectedItem.price.toLocaleString('id-ID')})
+${itemListText.trim()}
 
-Total Harga: Rp ${selectedItem.price.toLocaleString('id-ID')}
+Total Harga: Rp ${totalPrice.toLocaleString('id-ID')}
 Pembayaran: ${selectedPayment}
 -----------------------
 Order ID: ${orderID}`;
