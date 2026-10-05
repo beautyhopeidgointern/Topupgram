@@ -54,14 +54,15 @@
                 </div>
             </div>
 
-            <!-- TOGGLE VERIFIKASI 2 LANGKAH -->
-            <div>
-                <label class="block text-xs font-semibold text-slate-600 mb-1.5">Status Verifikasi 2 Langkah <span class="text-rose-500">*</span></label>
-                <div class="grid grid-cols-2 gap-2">
-                    <button type="button" id="btn-verif-off" onclick="setVerifStatus(false)" class="p-2.5 rounded-xl text-xs font-bold border transition tap-effect bg-pink-500 text-white border-pink-500 shadow-sm">
+            <!-- TOGGLE VERIFIKASI 2 LANGKAH (RINGKAS DI SAMPING TEKS) -->
+            <div id="field-verif-box" class="flex items-center justify-between pt-1 pb-1">
+                <label class="text-xs font-semibold text-slate-600">Verifikasi 2 Langkah <span class="text-rose-500">*</span></label>
+                
+                <div class="inline-flex p-0.5 bg-slate-100 rounded-xl border border-slate-200">
+                    <button type="button" id="btn-verif-off" onclick="setVerifStatus(false)" class="px-4 py-1.5 rounded-lg text-xs font-bold transition tap-effect bg-pink-500 text-white shadow-xs">
                         OFF
                     </button>
-                    <button type="button" id="btn-verif-on" onclick="setVerifStatus(true)" class="p-2.5 rounded-xl text-xs font-bold border transition tap-effect bg-slate-100 text-slate-400 border-slate-200">
+                    <button type="button" id="btn-verif-on" onclick="setVerifStatus(true)" class="px-4 py-1.5 rounded-lg text-xs font-bold transition tap-effect text-slate-400">
                         ON
                     </button>
                 </div>
@@ -80,10 +81,11 @@
                     </select>
                 </div>
 
-                <!-- FORM TAMBAHAN BACKUP CODES -->
+                <!-- FORM TAMBAHAN BACKUP CODES (TEXTAREA MULTI-LINE / BISA ENTER) -->
                 <div id="field-backup-box" class="hidden">
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Masukkan 1-3 Backup Codes <span class="text-rose-500">*</span></label>
-                    <input type="text" id="acc-backup-codes" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none transition" placeholder="Contoh: 12345678, 87654321">
+                    <textarea id="acc-backup-codes" rows="2" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none transition resize-none" placeholder="Contoh:&#10;12345678&#10;87654321"></textarea>
+                    <p class="text-[10px] text-slate-400 mt-0.5">*Bisa dipisah menggunakan enter / baris baru.</p>
                 </div>
             </div>
         </section>
@@ -164,12 +166,12 @@
             const container = document.getElementById('verif-options-container');
 
             if (status) {
-                btnOn.className = 'p-2.5 rounded-xl text-xs font-bold border transition tap-effect bg-pink-500 text-white border-pink-500 shadow-sm';
-                btnOff.className = 'p-2.5 rounded-xl text-xs font-bold border transition tap-effect bg-slate-100 text-slate-400 border-slate-200';
+                btnOn.className = 'px-4 py-1.5 rounded-lg text-xs font-bold transition tap-effect bg-pink-500 text-white shadow-xs';
+                btnOff.className = 'px-4 py-1.5 rounded-lg text-xs font-bold transition tap-effect text-slate-400';
                 container.classList.remove('hidden');
             } else {
-                btnOff.className = 'p-2.5 rounded-xl text-xs font-bold border transition tap-effect bg-pink-500 text-white border-pink-500 shadow-sm';
-                btnOn.className = 'p-2.5 rounded-xl text-xs font-bold border transition tap-effect bg-slate-100 text-slate-400 border-slate-200';
+                btnOff.className = 'px-4 py-1.5 rounded-lg text-xs font-bold transition tap-effect bg-pink-500 text-white shadow-xs';
+                btnOn.className = 'px-4 py-1.5 rounded-lg text-xs font-bold transition tap-effect text-slate-400';
                 container.classList.add('hidden');
             }
         }
@@ -272,12 +274,12 @@
             });
         }
 
-        // AUTO-SCROLL VALIDASI DENGAN HIGHLIGHT MERAH
+        // AUTO-SCROLL VALIDASI DENGAN HIGHLIGHT MERAH & TOAST iOS
         function highlightAndScroll(elementId, boxId, alertMsg) {
             const el = document.getElementById(elementId);
             const box = document.getElementById(boxId);
             
-            alert(alertMsg);
+            showToast(alertMsg, 'error');
             box.scrollIntoView({ behavior: 'smooth', block: 'center' });
             el.focus();
             
@@ -296,7 +298,7 @@
             const pass = passInput.value.trim();
 
             if (!username) {
-                highlightAndScroll('acc-username', 'section-account', "⚠️ Harap isi Username Roblox terlebih dahulu!");
+                highlightAndScroll('acc-username', 'section-account', "⚠️️ Harap isi Username Roblox terlebih dahulu!");
                 return;
             }
             if (!pass) {
@@ -304,7 +306,7 @@
                 return;
             }
             if (!selectedProduct) {
-                alert("⚠️ Silakan pilih nominal Robux terlebih dahulu!");
+                showToast("⚠️ Silakan pilih nominal Robux terlebih dahulu!", 'error');
                 document.getElementById('section-products').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return;
             }
@@ -331,19 +333,18 @@
                         highlightAndScroll('acc-backup-codes', 'section-account', "⚠️ Harap isi 1-3 Backup Codes terlebih dahulu!");
                         return;
                     }
-                    verifDetailText += `\r\nBackup Codes: ${backupVal}`;
+                    verifDetailText += `\r\nBackup Codes:\r\n${backupVal}`;
                 }
             }
 
             if (!selectedPayment) {
-                alert("⚠️ Silakan pilih Metode Pembayaran!");
+                showToast("⚠️ Silakan pilih Metode Pembayaran!", 'error');
                 document.getElementById('section-payment').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return;
             }
 
             const orderID = generateOrderID();
 
-            // FORMAT HASIL SALINAN DENGAN "Jumlah Order" BERADA DI DATA ACCOUNT DENGAN POSISI SEBELUM VERIFIKASI
             const formatPesan = 
 `🧾 ORDER TOPUPGRAM\r\n` +
 `=============================\r\n` +
