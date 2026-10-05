@@ -11,9 +11,9 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Resource Data khusus Heartopia & Payment -->
-    <script src="../data/pricelist-heartopia.js"></script>
-    <script src="../data/payment-methods.js"></script>
-    <script src="../assets/js/main.js"></script>
+    <script src="../data/pricelist-heartopia.js?v=1.1"></script>
+    <script src="../data/payment-methods.js?v=1.1"></script>
+    <script src="../assets/js/main.js?v=1.1"></script>
     <style>
         .no-scrollbar::-webkit-scrollbar {
             display: none;
@@ -35,7 +35,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 pb-12 font-sans">
+<body class="bg-slate-50 text-slate-800 pb-12 font-sans select-none">
 
     <!-- Header / Nav Back -->
     <header class="sticky top-0 bg-white border-b border-pink-100 p-4 flex items-center gap-3 z-10 shadow-sm">
@@ -186,6 +186,7 @@
             const container = document.getElementById('item-grid');
             container.innerHTML = '';
             
+            if (typeof HEARTOPIA_PRICELIST === 'undefined') return;
             const items = HEARTOPIA_PRICELIST[currentCategory] || [];
 
             items.forEach(item => {
@@ -207,13 +208,15 @@
             });
         }
 
-        // TOGGLE PRODUK + AUTO-SCROLL KE BAWAH
+        // TOGGLE PRODUK
         function toggleItemSelect(itemId, isChecked) {
             let foundItem = null;
-            Object.keys(HEARTOPIA_PRICELIST).forEach(cat => {
-                const match = HEARTOPIA_PRICELIST[cat].find(i => i.id === itemId);
-                if (match) foundItem = match;
-            });
+            if (typeof HEARTOPIA_PRICELIST !== 'undefined') {
+                Object.keys(HEARTOPIA_PRICELIST).forEach(cat => {
+                    const match = HEARTOPIA_PRICELIST[cat].find(i => i.id === itemId);
+                    if (match) foundItem = match;
+                });
+            }
 
             if (!foundItem) return;
 
@@ -228,7 +231,6 @@
             renderCategoryItems();
             updateSelectedSummary();
 
-            // Auto-Scroll ke bawah setelah pilih produk jika baru pertama memilih
             if (isChecked && selectedItems.length === 1) {
                 document.getElementById('selected-items-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
@@ -266,6 +268,8 @@
         // LOAD METODE PEMBAYARAN
         function loadPayments() {
             const container = document.getElementById('payment-grid');
+            if (typeof PAYMENT_METHODS === 'undefined') return;
+
             PAYMENT_METHODS.forEach(pm => {
                 const card = document.createElement('div');
                 card.className = 'p-2.5 border border-slate-200 rounded-xl cursor-pointer hover:border-pink-400 text-center pay-card transition bg-white tap-effect';
@@ -279,17 +283,16 @@
             });
         }
 
-        // AUTO-SCROLL VALIDASI DENGAN HIGHLIGHT MERAH
+        // AUTO-SCROLL VALIDASI DENGAN HIGHLIGHT MERAH & TOAST iOS
         function highlightAndScroll(elementId, boxId, alertMsg) {
             const el = document.getElementById(elementId);
             const box = document.getElementById(boxId);
             
-            alert(alertMsg);
+            showToast(alertMsg, 'error');
             
             box.scrollIntoView({ behavior: 'smooth', block: 'center' });
             el.focus();
             
-            // Effect highlight merah sementara
             el.classList.add('border-rose-500', 'ring-2', 'ring-rose-200');
             setTimeout(() => {
                 el.classList.remove('border-rose-500', 'ring-2', 'ring-rose-200');
@@ -310,7 +313,6 @@
             const server = serverInput.value;
             const uid = uidInput.value.trim();
 
-            // AUTO SCROLL KE INPUT KOSONG
             if (!loginMethod) {
                 highlightAndScroll('login-method', 'section-account', "⚠️ Harap pilih Login Method terlebih dahulu!");
                 return;
@@ -332,12 +334,12 @@
                 return;
             }
             if (selectedItems.length === 0) {
-                alert("⚠️ Silakan pilih minimal 1 nominal produk!");
+                showToast("⚠️ Silakan pilih minimal 1 nominal produk!", 'error');
                 document.getElementById('section-products').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return;
             }
             if (!selectedPayment) {
-                alert("⚠️ Silakan pilih Metode Pembayaran!");
+                showToast("⚠️ Silakan pilih Metode Pembayaran!", 'error');
                 document.getElementById('section-payment').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return;
             }
