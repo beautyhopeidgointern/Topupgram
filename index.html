@@ -23,7 +23,7 @@
             transform: scale(0.95);
         }
 
-        /* Continuous Running Text Animation (Tanpa Putus/Lompat) */
+        /* Continuous Running Text Animation (Tanpa Putus/Jeda) */
         @keyframes marquee-continuous {
             0% { transform: translateX(0%); }
             100% { transform: translateX(-50%); }
@@ -54,7 +54,7 @@
             <p class="text-xs text-pink-100 font-medium">Pilih game favoritmu dan salin format order dengan sekali klik!</p>
         </section>
 
-        <!-- RUNNING TEXT MARQUEE INFO STATUS (NGALIR CONTINUOUS TANPA PUTUS) -->
+        <!-- RUNNING TEXT MARQUEE INFO STATUS -->
         <div class="bg-white border border-pink-100 rounded-xl px-3 py-2 overflow-hidden relative shadow-xs flex items-center gap-2">
             <span class="flex-shrink-0 text-[10px] font-extrabold bg-pink-50 text-pink-600 px-2 py-0.5 rounded-md uppercase z-10">INFORMASI</span>
             
@@ -68,7 +68,7 @@
                     <span>Proses superfast 1-15 menit sesuai antrian (maks 60 menit). Subscribe @TOPUPGRAM ya!</span>
                     <span>•</span>
 
-                    <!-- Duplikat Set 2 (Agar Ngalir Terus Tanpa Jeda Putih) -->
+                    <!-- Set 2 (Duplikat Seamless) -->
                     <span class="flex items-center gap-2">🟢 <strong class="text-emerald-600">Hijau</strong> = Ready / Open Order</span>
                     <span>•</span>
                     <span class="flex items-center gap-2">🔴 <strong class="text-rose-500">Merah</strong> = Stok Habis / Closed</span>
@@ -94,7 +94,7 @@
                     <div id="dot-robux-vlog" class="absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full"></div>
                     
                     <div class="w-12 h-12 rounded-xl bg-pink-50 overflow-hidden mb-2 flex items-center justify-center p-0.5">
-                        <img id="img-robux-vlog" src="https://faqs.uwu.ai/assets/images/gallery05/aa7a759c_original.jpg?v=15845db8" alt="Roblox V-Log" class="w-full h-full object-cover rounded-lg">
+                        <img id="img-robux-vlog" src="./assets/images/robux.png" alt="Roblox V-Log" class="w-full h-full object-cover rounded-lg">
                     </div>
                     
                     <span id="badge-robux-vlog" class="text-[9px] font-extrabold px-2 py-0.5 rounded-full mb-1 bg-pink-100 text-pink-700">Via Login</span>
@@ -107,10 +107,10 @@
                     <div id="dot-robux-vsend" class="absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full"></div>
                     
                     <div class="w-12 h-12 rounded-xl bg-pink-50 overflow-hidden mb-2 flex items-center justify-center p-0.5">
-                        <img id="img-robux-vsend" src="https://faqs.uwu.ai/assets/images/gallery05/83da53bf_original.jpg?v=15845db8" alt="Roblox VISEND" class="w-full h-full object-cover rounded-lg">
+                        <img id="img-robux-vsend" src="./assets/images/robux.png" alt="Roblox VISEND" class="w-full h-full object-cover rounded-lg">
                     </div>
                     
-                    <span id="badge-robux-vsend" class="text-[9px] font-extrabold px-2 py-0.5 rounded-full mb-1 bg-rose-100 text-rose-700">VISEND</span>
+                    <span id="badge-robux-vsend" class="text-[9px] font-extrabold px-2 py-0.5 rounded-full mb-1 bg-pink-100 text-pink-700">VISEND</span>
                     <span class="text-xs font-bold text-slate-800">Roblox</span>
                 </div>
 
@@ -120,7 +120,7 @@
                     <div id="dot-heartopia" class="absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full"></div>
                     
                     <div class="w-12 h-12 rounded-xl bg-pink-50 overflow-hidden mb-2 flex items-center justify-center p-0.5">
-                        <img id="img-heartopia" src="https://faqs.uwu.ai/assets/images/gallery05/781a7dda_original.jpg?v=15845db8" alt="Heartopia" class="w-full h-full object-cover rounded-lg">
+                        <img id="img-heartopia" src="./assets/images/heartopia.png" alt="Heartopia" class="w-full h-full object-cover rounded-lg">
                     </div>
                     
                     <span id="badge-heartopia" class="text-[9px] font-extrabold px-2 py-0.5 rounded-full mb-1 bg-pink-100 text-pink-700">Via Login</span>
@@ -144,7 +144,7 @@
                      class="card-btn bg-white border border-slate-100 rounded-2xl p-3 flex items-center gap-3 relative shadow-xs cursor-pointer hover:border-pink-300">
                     <div id="dot-genshin" class="absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full"></div>
                     <div class="w-10 h-10 rounded-xl bg-purple-50 overflow-hidden flex-shrink-0 flex items-center justify-center p-0.5">
-                        <img id="img-genshin" src="https://faqs.uwu.ai/assets/images/gallery05/e0f75191_original.jpg?v=15845db8" alt="Genshin Impact" class="w-full h-full object-cover rounded-lg">
+                        <img id="img-genshin" src="./assets/images/genshin.png" alt="Genshin Impact" class="w-full h-full object-cover rounded-lg">
                     </div>
                     <div>
                         <span id="badge-genshin" class="text-[8px] font-extrabold px-1.5 py-0.2 rounded-full block w-max mb-0.5 bg-pink-100 text-pink-700">Via Login</span>
@@ -157,7 +157,7 @@
                      class="card-btn bg-white border border-slate-100 rounded-2xl p-3 flex items-center gap-3 relative shadow-xs cursor-pointer hover:border-pink-300">
                     <div id="dot-hsr" class="absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full"></div>
                     <div class="w-10 h-10 rounded-xl bg-indigo-50 overflow-hidden flex-shrink-0 flex items-center justify-center p-0.5">
-                        <img id="img-hsr" src="https://faqs.uwu.ai/assets/images/gallery05/a9249633_original.jpg?v=15845db8" alt="Honkai: Star Rail" class="w-full h-full object-cover rounded-lg">
+                        <img id="img-hsr" src="./assets/images/hsr.png" alt="Honkai: Star Rail" class="w-full h-full object-cover rounded-lg">
                     </div>
                     <div>
                         <span id="badge-hsr" class="text-[8px] font-extrabold px-1.5 py-0.2 rounded-full block w-max mb-0.5 bg-pink-100 text-pink-700">Via Login</span>
@@ -170,7 +170,7 @@
                      class="card-btn bg-white border border-slate-100 rounded-2xl p-3 flex items-center gap-3 relative shadow-xs cursor-pointer hover:border-pink-300">
                     <div id="dot-nte" class="absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full"></div>
                     <div class="w-10 h-10 rounded-xl bg-slate-100 overflow-hidden flex-shrink-0 flex items-center justify-center p-0.5">
-                        <img id="img-nte" src="https://faqs.uwu.ai/assets/images/gallery05/0cbdfa8c_original.jpg?v=15845db8" alt="NTE" class="w-full h-full object-cover rounded-lg">
+                        <img id="img-nte" src="./assets/images/nte.png" alt="NTE" class="w-full h-full object-cover rounded-lg">
                     </div>
                     <div>
                         <span id="badge-nte" class="text-[8px] font-extrabold px-1.5 py-0.2 rounded-full block w-max mb-0.5 bg-pink-100 text-pink-700">Via Login</span>
