@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robux Visend - TOPUPGRAM</title>
+    <title>Roblox Via Username (Vsen) - TOPUPGRAM</title>
     <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <!-- Tailwind CSS CDN -->
@@ -28,8 +28,8 @@
             <i data-lucide="arrow-left" class="w-6 h-6"></i>
         </a>
         <div>
-            <h1 class="font-bold text-base text-slate-800 leading-tight">Roblox Via Send (VISEND)</h1>
-            <p class="text-[10px] text-pink-600 font-semibold">Proses Cepat & Praktis</p>
+            <h1 class="font-bold text-base text-slate-800 leading-tight">Roblox Via Username (Vsen)</h1>
+            <p class="text-[10px] text-pink-600 font-semibold leading-tight">Proses fast. Pastikan sudah verify age atau siapkan parent mandiri.</p>
         </div>
     </header>
 
@@ -53,28 +53,28 @@
             </div>
         </section>
 
-        <!-- PILIH NOMINAL ROBX -->
+        <!-- PILIH NOMINAL ROBUX -->
         <section id="section-products" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-4">
             <div class="flex items-center justify-between">
                 <h2 class="font-bold text-sm text-pink-600 flex items-center gap-1.5">
                     <i data-lucide="shopping-bag" class="w-4 h-4"></i> Pilih Nominal Robux <span class="text-rose-500">*</span>
                 </h2>
-                <span class="text-[10px] text-pink-600 bg-pink-50 font-bold px-2 py-0.5 rounded-full">Rp 17.500 / 100 Robux</span>
+                <span class="text-[10px] text-pink-600 bg-pink-50 font-bold px-2 py-0.5 rounded-full">Kelipatan 50 Robux</span>
             </div>
 
             <!-- GRID PRESET NOMINAL (2 KOLOM) -->
             <div id="item-grid" class="grid grid-cols-2 gap-2.5"></div>
 
-            <!-- INPUT CUSTOM KELIPATAN 100 -->
+            <!-- INPUT CUSTOM KELIPATAN 50 -->
             <div class="pt-3 border-t border-slate-100 space-y-2">
-                <label class="block text-xs font-bold text-slate-700">Atau Ketik Jumlah Robux Custom (Kelipatan 100):</label>
+                <label class="block text-xs font-bold text-slate-700">Atau Ketik Jumlah Robux Custom (Kelipatan 50):</label>
                 <div class="flex items-center gap-2">
-                    <input type="number" id="custom-robux" step="100" min="100" oninput="handleCustomRobuxInput()" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none" placeholder="Contoh: 600, 1200, 2500">
+                    <input type="number" id="custom-robux" step="50" min="50" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none" placeholder="Contoh: 150, 250, 750">
                     <button type="button" onclick="applyCustomRobux()" class="bg-pink-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl tap-effect flex-shrink-0">
                         Set
                     </button>
                 </div>
-                <p class="text-[10px] text-slate-400">*Minimal 100 Robux untuk nominal custom.</p>
+                <p class="text-[10px] text-slate-400">*Minimal 50 Robux dan kelipatan 50 untuk nominal custom.</p>
             </div>
 
             <!-- RINGKASAN PRODUK TERPILIH -->
@@ -103,7 +103,7 @@
             </button>
             
             <button onclick="closeTelegramWebApp()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition tap-effect">
-                <i data-lucide="corner-down-left" class="w-4 h-4"></i> Kembali ke Bot
+                <i data-lucide="corner-down-left" class="w-4 h-4"></i> Kembali ke @topupgrambot
             </button>
         </section>
 
@@ -152,14 +152,15 @@
             document.getElementById('selected-items-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        // INPUT CUSTOM ROBUX
+        // INPUT CUSTOM ROBUX (KELIPATAN 50)
         function applyCustomRobux() {
             const val = parseInt(document.getElementById('custom-robux').value);
-            if (!val || val < 100 || val % 100 !== 0) {
-                alert("⚠️ Harap masukkan nominal Robux kelipatan 100 (minimal 100 Robux)!");
+            if (!val || val < 50 || val % 50 !== 0) {
+                alert("⚠️ Harap masukkan nominal Robux kelipatan 50 (minimal 50 Robux)!");
                 return;
             }
 
+            // Perhitungan harga: Rp 17.500 per 100 Robux (Rp 8.750 per 50 Robux)
             const calculatedPrice = (val / 100) * 17500;
             selectedProduct = {
                 id: `custom-${val}`,
@@ -211,7 +212,7 @@
             });
         }
 
-        // AUTO-SCROLL VALIDASI
+        // AUTO-SCROLL VALIDASI DENGAN HIGHLIGHT MERAH
         function highlightAndScroll(elementId, boxId, alertMsg) {
             const el = document.getElementById(elementId);
             const box = document.getElementById(boxId);
@@ -226,41 +227,39 @@
             }, 2000);
         }
 
-// VALIDASI & SALIN FORMAT ORDER ROBUX VISEND (RINGKAS)
-function handleGenerateFormat() {
-    const usernameInput = document.getElementById('acc-username');
-    const nicknameInput = document.getElementById('acc-nickname');
+        // VALIDASI & SALIN FORMAT ORDER
+        function handleGenerateFormat() {
+            const usernameInput = document.getElementById('acc-username');
+            const nicknameInput = document.getElementById('acc-nickname');
 
-    const username = usernameInput.value.trim();
-    const nickname = nicknameInput.value.trim();
+            const username = usernameInput.value.trim();
+            const nickname = nicknameInput.value.trim();
 
-    // Auto scroll ke input yang kosong
-    if (!username) {
-        highlightAndScroll('acc-username', 'section-account', "⚠️ Harap isi Username Roblox terlebih dahulu!");
-        return;
-    }
-    if (!nickname) {
-        highlightAndScroll('acc-nickname', 'section-account', "⚠️ Harap isi Nickname Roblox terlebih dahulu!");
-        return;
-    }
-    if (!selectedProduct) {
-        alert("⚠️ Silakan pilih atau isi nominal Robux!");
-        document.getElementById('section-products').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-    }
-    if (!selectedPayment) {
-        alert("⚠️ Silakan pilih Metode Pembayaran!");
-        document.getElementById('section-payment').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-    }
+            if (!username) {
+                highlightAndScroll('acc-username', 'section-account', "⚠️ Harap isi Username Roblox terlebih dahulu!");
+                return;
+            }
+            if (!nickname) {
+                highlightAndScroll('acc-nickname', 'section-account', "⚠️ Harap isi Nickname Roblox terlebih dahulu!");
+                return;
+            }
+            if (!selectedProduct) {
+                alert("⚠️ Silakan pilih atau isi nominal Robux!");
+                document.getElementById('section-products').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+            if (!selectedPayment) {
+                alert("⚠️ Silakan pilih Metode Pembayaran!");
+                document.getElementById('section-payment').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
 
-    const orderID = generateOrderID();
+            const orderID = generateOrderID();
 
-    // TEMPLATE FORMAT ORDER SESUAI PERMINTAAN (TANPA LIST ITEM)
-    const formatPesan = 
+            const formatPesan = 
 `🧾 ORDER TOPUPGRAM\r\n` +
 `=============================\r\n` +
-`Game: Robux Via Send (VISEND)\r\n` +
+`Game: Roblox Via Username (Vsen)\r\n` +
 `\r\n` +
 `📋 DATA ACCOUNT\r\n` +
 `-----------------------------\r\n` +
@@ -273,8 +272,8 @@ function handleGenerateFormat() {
 `=============================\r\n` +
 `Order ID: ${orderID}`;
 
-    copyFormatToClipboard(formatPesan);
-}
+            copyFormatToClipboard(formatPesan);
+        }
     </script>
 </body>
 </html>
