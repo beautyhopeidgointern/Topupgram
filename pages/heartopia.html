@@ -22,80 +22,97 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Tap Feedback Visuals */
+        .tap-effect {
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+        }
+        .tap-effect:active {
+            transform: scale(0.96);
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 pb-12 font-sans">
 
     <!-- Header / Nav Back -->
     <header class="sticky top-0 bg-white border-b border-pink-100 p-4 flex items-center gap-3 z-10 shadow-sm">
-        <a href="../index.html" class="p-1 text-slate-600 hover:text-pink-600">
+        <a href="../index.html" class="p-1 text-slate-600 hover:text-pink-600 tap-effect">
             <i data-lucide="arrow-left" class="w-6 h-6"></i>
         </a>
-        <h1 class="font-bold text-lg text-slate-800">Heartopia Via Login</h1>
+        <div>
+            <h1 class="font-bold text-base text-slate-800 leading-tight">Heartopia Via Login</h1>
+            <p class="text-[10px] text-pink-600 font-semibold">Proses 5-30 Menit (Maks 1 Jam)</p>
+        </div>
     </header>
 
     <main class="max-w-md mx-auto p-4 space-y-5">
         
         <!-- FORM DATA AKUN -->
-        <section class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+        <section id="section-account" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-3">
             <h2 class="font-bold text-sm text-pink-600 flex items-center gap-1.5">
                 <i data-lucide="user-check" class="w-4 h-4"></i> Data Account
             </h2>
 
             <div>
                 <label class="block text-xs font-semibold text-slate-600 mb-1">Login Method <span class="text-rose-500">*</span></label>
-                <select id="login-method" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl bg-white focus:border-pink-500 outline-none">
+                <select id="login-method" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl bg-white focus:border-pink-500 outline-none tap-effect">
                     <option value="Google Account">Google Account</option>
                     <option value="Facebook Account">Facebook Account</option>
                 </select>
             </div>
 
             <div class="grid grid-cols-2 gap-2">
-                <div>
+                <div id="field-email-box">
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Email / No HP <span class="text-rose-500">*</span></label>
-                    <input type="text" id="acc-email" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none" placeholder="user@gmail.com">
+                    <input type="text" id="acc-email" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none transition" placeholder="user@gmail.com">
                 </div>
-                <div>
+                <div id="field-pass-box">
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Password <span class="text-rose-500">*</span></label>
-                    <input type="text" id="acc-pass" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none" placeholder="Pass123">
+                    <input type="text" id="acc-pass" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none transition" placeholder="Pass123">
                 </div>
             </div>
 
             <div class="grid grid-cols-2 gap-2">
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 mb-1">Server <span class="text-rose-500">*</span></label>
-                    <select id="acc-server" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl bg-white focus:border-pink-500 outline-none">
+                    <select id="acc-server" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl bg-white focus:border-pink-500 outline-none tap-effect">
                         <option value="SEA">SEA</option>
                         <option value="Asia">Asia</option>
                         <option value="America">America</option>
                         <option value="Europe">Europe</option>
                     </select>
                 </div>
-                <div>
+                <div id="field-uid-box">
                     <label class="block text-xs font-semibold text-slate-600 mb-1">UID / Nickname <span class="text-rose-500">*</span></label>
-                    <input type="text" id="acc-uid" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none" placeholder="82sk8jn92">
+                    <input type="text" id="acc-uid" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none transition" placeholder="82sk8jn92">
                 </div>
             </div>
         </section>
 
-        <!-- KATEGORI & NOMINAL PRODUK (MULTI-SELECT CHECKBOX) -->
-        <section class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-4">
+        <!-- KATEGORI & NOMINAL PRODUK -->
+        <section id="section-products" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-4">
             <div class="flex items-center justify-between">
                 <h2 class="font-bold text-sm text-pink-600 flex items-center gap-1.5">
                     <i data-lucide="shopping-bag" class="w-4 h-4"></i> Pilih Nominal <span class="text-rose-500">*</span>
                 </h2>
-                <span class="text-[10px] text-pink-600 bg-pink-50 font-bold px-2 py-0.5 rounded-full">Bisa Mix Items</span>
+                <span class="text-[10px] text-pink-600 bg-pink-50 font-bold px-2 py-0.5 rounded-full">Bebas Mix Nominal</span>
             </div>
 
-            <!-- TAB KATEGORI -->
+            <!-- TAB KATEGORI TERMASUK PROMO -->
             <div class="flex gap-1.5 border-b border-slate-100 pb-2 overflow-x-auto no-scrollbar">
-                <button type="button" onclick="switchCategory('heart-diamond')" id="tab-heart-diamond" class="tab-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-pink-500 text-white">
+                <button type="button" onclick="switchCategory('promo')" id="tab-promo" class="tab-btn tap-effect px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-pink-500 text-white shadow-sm flex items-center gap-1">
+                    <span>PROMO</span> 💖
+                </button>
+                <button type="button" onclick="switchCategory('heart-diamond')" id="tab-heart-diamond" class="tab-btn tap-effect px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-slate-100 text-slate-600 hover:bg-slate-200">
                     Heart Diamond
                 </button>
-                <button type="button" onclick="switchCategory('membership')" id="tab-membership" class="tab-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-slate-100 text-slate-600 hover:bg-slate-200">
-                    Membership
+                <button type="button" onclick="switchCategory('membership')" id="tab-membership" class="tab-btn tap-effect px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    GAMG Membership
                 </button>
-                <button type="button" onclick="switchCategory('festival-pack')" id="tab-festival-pack" class="tab-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-slate-100 text-slate-600 hover:bg-slate-200">
+                <button type="button" onclick="switchCategory('festival-pack')" id="tab-festival-pack" class="tab-btn tap-effect px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-slate-100 text-slate-600 hover:bg-slate-200">
                     Festival Pack
                 </button>
             </div>
@@ -115,7 +132,7 @@
         </section>
 
         <!-- PILIH PEMBAYARAN -->
-        <section class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+        <section id="section-payment" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-3">
             <h2 class="font-bold text-sm text-pink-600 flex items-center gap-1.5">
                 <i data-lucide="wallet" class="w-4 h-4"></i> Metode Pembayaran <span class="text-rose-500">*</span>
             </h2>
@@ -124,11 +141,11 @@
 
         <!-- ACTION BUTTONS -->
         <section class="space-y-2 pt-2">
-            <button onclick="handleGenerateFormat()" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-pink-200 text-xs flex items-center justify-center gap-2 transition active:scale-95">
+            <button onclick="handleGenerateFormat()" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-pink-200 text-xs flex items-center justify-center gap-2 transition tap-effect">
                 <i data-lucide="copy" class="w-4 h-4"></i> Salin Format Order
             </button>
             
-            <button onclick="closeTelegramWebApp()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition">
+            <button onclick="closeTelegramWebApp()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition tap-effect">
                 <i data-lucide="corner-down-left" class="w-4 h-4"></i> Kembali ke Bot
             </button>
         </section>
@@ -136,7 +153,7 @@
     </main>
 
     <script>
-        let currentCategory = 'heart-diamond';
+        let currentCategory = 'promo';
         let selectedItems = []; 
         let selectedPayment = null;
 
@@ -146,20 +163,22 @@
             loadPayments();
         });
 
+        // SWITCH TAB KATEGORI
         function switchCategory(catKey) {
             currentCategory = catKey;
             
             document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.className = 'tab-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-slate-100 text-slate-600 hover:bg-slate-200';
+                btn.className = 'tab-btn tap-effect px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-slate-100 text-slate-600 hover:bg-slate-200';
             });
             const activeTab = document.getElementById(`tab-${catKey}`);
             if (activeTab) {
-                activeTab.className = 'tab-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-pink-500 text-white';
+                activeTab.className = 'tab-btn tap-effect px-3 py-1.5 rounded-xl text-xs font-bold transition flex-shrink-0 bg-pink-500 text-white shadow-sm';
             }
 
             renderCategoryItems();
         }
 
+        // RENDER GRID PRODUK
         function renderCategoryItems() {
             const container = document.getElementById('item-grid');
             container.innerHTML = '';
@@ -170,7 +189,7 @@
                 const isChecked = selectedItems.some(i => i.id === item.id);
                 
                 const card = document.createElement('label');
-                card.className = `p-3 border rounded-xl cursor-pointer transition flex flex-col justify-between bg-white relative select-none ${
+                card.className = `p-3 border rounded-xl cursor-pointer transition flex flex-col justify-between bg-white relative select-none tap-effect ${
                     isChecked ? 'border-pink-500 bg-pink-50/50 ring-1 ring-pink-400' : 'border-slate-200 hover:border-pink-300'
                 }`;
                 
@@ -185,6 +204,7 @@
             });
         }
 
+        // TOGGLE PRODUK + AUTO-SCROLL KE BAWAH
         function toggleItemSelect(itemId, isChecked) {
             let foundItem = null;
             Object.keys(HEARTOPIA_PRICELIST).forEach(cat => {
@@ -204,8 +224,14 @@
 
             renderCategoryItems();
             updateSelectedSummary();
+
+            // Auto-Scroll ke bawah setelah pilih produk jika baru pertama memilih
+            if (isChecked && selectedItems.length === 1) {
+                document.getElementById('selected-items-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
         }
 
+        // UPDATE RINGKASAN LIST
         function updateSelectedSummary() {
             const box = document.getElementById('selected-items-box');
             const listContainer = document.getElementById('selected-items-list');
@@ -234,11 +260,12 @@
             priceDisplay.innerText = `Rp ${total.toLocaleString('id-ID')}`;
         }
 
+        // LOAD METODE PEMBAYARAN
         function loadPayments() {
             const container = document.getElementById('payment-grid');
             PAYMENT_METHODS.forEach(pm => {
                 const card = document.createElement('div');
-                card.className = 'p-2.5 border border-slate-200 rounded-xl cursor-pointer hover:border-pink-400 text-center pay-card transition bg-white';
+                card.className = 'p-2.5 border border-slate-200 rounded-xl cursor-pointer hover:border-pink-400 text-center pay-card transition bg-white tap-effect';
                 card.onclick = () => {
                     document.querySelectorAll('.pay-card').forEach(c => c.classList.remove('border-pink-500', 'bg-pink-50', 'ring-2', 'ring-pink-400'));
                     card.classList.add('border-pink-500', 'bg-pink-50', 'ring-2', 'ring-pink-400');
@@ -249,39 +276,56 @@
             });
         }
 
+        // AUTO-SCROLL VALIDASI DENGAN HIGHLIGHT MERAH
+        function highlightAndScroll(elementId, boxId, alertMsg) {
+            const el = document.getElementById(elementId);
+            const box = document.getElementById(boxId);
+            
+            alert(alertMsg);
+            
+            box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            el.focus();
+            
+            // Effect highlight merah sementara
+            el.classList.add('border-rose-500', 'ring-2', 'ring-rose-200');
+            setTimeout(() => {
+                el.classList.remove('border-rose-500', 'ring-2', 'ring-rose-200');
+            }, 2000);
+        }
+
+        // VALIDASI & SALIN FORMAT
         function handleGenerateFormat() {
             const loginMethod = document.getElementById('login-method').value.trim();
             const emailInput = document.getElementById('acc-email');
             const passInput = document.getElementById('acc-pass');
-            const serverInput = document.getElementById('acc-server');
             const uidInput = document.getElementById('acc-uid');
 
             const email = emailInput.value.trim();
             const pass = passInput.value.trim();
-            const server = serverInput.value.trim();
+            const server = document.getElementById('acc-server').value.trim();
             const uid = uidInput.value.trim();
 
+            // AUTO SCROLL KE INPUT KOSONG
             if (!email) {
-                alert("⚠️ Harap isi Email / No HP terlebih dahulu!");
-                emailInput.focus();
+                highlightAndScroll('acc-email', 'section-account', "⚠️ Harap isi Email / No HP terlebih dahulu!");
                 return;
             }
             if (!pass) {
-                alert("⚠️ Harap isi Password terlebih dahulu!");
-                passInput.focus();
+                highlightAndScroll('acc-pass', 'section-account', "⚠️ Harap isi Password terlebih dahulu!");
                 return;
             }
             if (!uid) {
-                alert("⚠️ Harap isi UID / Nickname terlebih dahulu!");
-                uidInput.focus();
+                highlightAndScroll('acc-uid', 'section-account', "⚠️ Harap isi UID / Nickname terlebih dahulu!");
                 return;
             }
             if (selectedItems.length === 0) {
                 alert("⚠️ Silakan pilih minimal 1 nominal produk!");
+                document.getElementById('section-products').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return;
             }
             if (!selectedPayment) {
                 alert("⚠️ Silakan pilih Metode Pembayaran!");
+                document.getElementById('section-payment').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return;
             }
 
