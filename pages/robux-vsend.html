@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robux Visend - TOPUPGRAM</title>
+    <!-- Telegram WebApp SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Resource Data khusus Robux V-Send & Payment -->
+    <script src="../data/pricelist-robux-vsend.js"></script>
+    <script src="../data/payment-methods.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .tap-effect { transition: transform 0.1s ease, box-shadow 0.1s ease; }
+        .tap-effect:active { transform: scale(0.96); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 pb-12 font-sans select-none">
+
+    <!-- Header / Nav Back -->
+    <header class="sticky top-0 bg-white border-b border-pink-100 p-4 flex items-center gap-3 z-10 shadow-sm">
+        <a href="../index.html" class="p-1 text-slate-600 hover:text-pink-600 tap-effect">
+            <i data-lucide="arrow-left" class="w-6 h-6"></i>
+        </a>
+        <div>
+            <h1 class="font-bold text-base text-slate-800 leading-tight">Roblox Via Send (VISEND)</h1>
+            <p class="text-[10px] text-pink-600 font-semibold">Proses Cepat & Praktis</p>
+        </div>
+    </header>
+
+    <main class="max-w-md mx-auto p-4 space-y-5">
+        
+        <!-- FORM DATA AKUN ROBLOX -->
+        <section id="section-account" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+            <h2 class="font-bold text-sm text-pink-600 flex items-center gap-1.5">
+                <i data-lucide="user-check" class="w-4 h-4"></i> Data Account Roblox
+            </h2>
+
+            <div class="grid grid-cols-2 gap-2">
+                <div id="field-username-box">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Username Roblox <span class="text-rose-500">*</span></label>
+                    <input type="text" id="acc-username" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none transition" placeholder="Username">
+                </div>
+                <div id="field-nickname-box">
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Nickname Roblox <span class="text-rose-500">*</span></label>
+                    <input type="text" id="acc-nickname" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none transition" placeholder="Display Name / Nick">
+                </div>
+            </div>
+        </section>
+
+        <!-- PILIH NOMINAL ROBX -->
+        <section id="section-products" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-4">
+            <div class="flex items-center justify-between">
+                <h2 class="font-bold text-sm text-pink-600 flex items-center gap-1.5">
+                    <i data-lucide="shopping-bag" class="w-4 h-4"></i> Pilih Nominal Robux <span class="text-rose-500">*</span>
+                </h2>
+                <span class="text-[10px] text-pink-600 bg-pink-50 font-bold px-2 py-0.5 rounded-full">Rp 17.500 / 100 Robux</span>
+            </div>
+
+            <!-- GRID PRESET NOMINAL (2 KOLOM) -->
+            <div id="item-grid" class="grid grid-cols-2 gap-2.5"></div>
+
+            <!-- INPUT CUSTOM KELIPATAN 100 -->
+            <div class="pt-3 border-t border-slate-100 space-y-2">
+                <label class="block text-xs font-bold text-slate-700">Atau Ketik Jumlah Robux Custom (Kelipatan 100):</label>
+                <div class="flex items-center gap-2">
+                    <input type="number" id="custom-robux" step="100" min="100" oninput="handleCustomRobuxInput()" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl focus:border-pink-500 outline-none" placeholder="Contoh: 600, 1200, 2500">
+                    <button type="button" onclick="applyCustomRobux()" class="bg-pink-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl tap-effect flex-shrink-0">
+                        Set
+                    </button>
+                </div>
+                <p class="text-[10px] text-slate-400">*Minimal 100 Robux untuk nominal custom.</p>
+            </div>
+
+            <!-- RINGKASAN PRODUK TERPILIH -->
+            <div id="selected-items-box" class="hidden pt-3 border-t border-slate-100 space-y-2">
+                <div class="text-[11px] font-bold text-slate-500">Produk Terpilih:</div>
+                <div id="selected-items-list" class="space-y-1.5 text-xs"></div>
+                <div class="pt-2 flex items-center justify-between font-extrabold text-xs text-slate-800">
+                    <span>Total Harga:</span>
+                    <span id="total-price-display" class="text-pink-600 text-sm">Rp 0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PILIH PEMBAYARAN -->
+        <section id="section-payment" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+            <h2 class="font-bold text-sm text-pink-600 flex items-center gap-1.5">
+                <i data-lucide="wallet" class="w-4 h-4"></i> Metode Pembayaran <span class="text-rose-500">*</span>
+            </h2>
+            <div id="payment-grid" class="grid grid-cols-2 gap-2"></div>
+        </section>
+
+        <!-- ACTION BUTTONS -->
+        <section class="space-y-2 pt-2">
+            <button onclick="handleGenerateFormat()" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-pink-200 text-xs flex items-center justify-center gap-2 transition tap-effect">
+                <i data-lucide="copy" class="w-4 h-4"></i> Salin Format Order
+            </button>
+            
+            <button onclick="closeTelegramWebApp()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition tap-effect">
+                <i data-lucide="corner-down-left" class="w-4 h-4"></i> Kembali ke Bot
+            </button>
+        </section>
+
+    </main>
+
+    <script>
+        let selectedProduct = null; 
+        let selectedPayment = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            renderItems();
+            loadPayments();
+        });
+
+        // RENDER NOMINAL PRESET
+        function renderItems() {
+            const container = document.getElementById('item-grid');
+            container.innerHTML = '';
+
+            ROBUX_VSEND_PRICELIST.forEach(item => {
+                const isSelected = selectedProduct && selectedProduct.id === item.id;
+                
+                const card = document.createElement('div');
+                card.className = `p-3 border rounded-xl cursor-pointer transition flex flex-col justify-between bg-white relative select-none tap-effect ${
+                    isSelected ? 'border-pink-500 bg-pink-50/50 ring-1 ring-pink-400' : 'border-slate-200 hover:border-pink-300'
+                }`;
+                card.onclick = () => selectPresetProduct(item);
+                
+                card.innerHTML = `
+                    <div class="text-xs font-bold text-slate-800 leading-tight mb-2">${item.name}</div>
+                    <div class="text-xs font-extrabold text-pink-600">Rp ${item.price.toLocaleString('id-ID')}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // PILIH NOMINAL DARI PRESET
+        function selectPresetProduct(item) {
+            selectedProduct = item;
+            document.getElementById('custom-robux').value = '';
+            renderItems();
+            updateSelectedSummary();
+
+            // Auto Scroll ke Ringkasan
+            document.getElementById('selected-items-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // INPUT CUSTOM ROBUX
+        function applyCustomRobux() {
+            const val = parseInt(document.getElementById('custom-robux').value);
+            if (!val || val < 100 || val % 100 !== 0) {
+                alert("⚠️ Harap masukkan nominal Robux kelipatan 100 (minimal 100 Robux)!");
+                return;
+            }
+
+            const calculatedPrice = (val / 100) * 17500;
+            selectedProduct = {
+                id: `custom-${val}`,
+                name: `${val.toLocaleString('id-ID')} Robux (Custom)`,
+                robuxAmount: val,
+                price: calculatedPrice
+            };
+
+            renderItems();
+            updateSelectedSummary();
+            document.getElementById('selected-items-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // UPDATE RINGKASAN LIST
+        function updateSelectedSummary() {
+            const box = document.getElementById('selected-items-box');
+            const listContainer = document.getElementById('selected-items-list');
+            const priceDisplay = document.getElementById('total-price-display');
+
+            if (!selectedProduct) {
+                box.classList.add('hidden');
+                return;
+            }
+
+            box.classList.remove('hidden');
+            listContainer.innerHTML = `
+                <div class="flex justify-between items-center text-slate-700 bg-pink-50/70 px-2.5 py-1.5 rounded-lg border border-pink-100">
+                    <span class="font-medium text-xs">• ${selectedProduct.name}</span>
+                    <span class="font-bold text-pink-700 text-xs">Rp ${selectedProduct.price.toLocaleString('id-ID')}</span>
+                </div>
+            `;
+
+            priceDisplay.innerText = `Rp ${selectedProduct.price.toLocaleString('id-ID')}`;
+        }
+
+        // LOAD METODE PEMBAYARAN
+        function loadPayments() {
+            const container = document.getElementById('payment-grid');
+            PAYMENT_METHODS.forEach(pm => {
+                const card = document.createElement('div');
+                card.className = 'p-2.5 border border-slate-200 rounded-xl cursor-pointer hover:border-pink-400 text-center pay-card transition bg-white tap-effect';
+                card.onclick = () => {
+                    document.querySelectorAll('.pay-card').forEach(c => c.classList.remove('border-pink-500', 'bg-pink-50', 'ring-2', 'ring-pink-400'));
+                    card.classList.add('border-pink-500', 'bg-pink-50', 'ring-2', 'ring-pink-400');
+                    selectedPayment = pm.name;
+                };
+                card.innerHTML = `<div class="text-xs font-bold text-slate-700">${pm.name}</div>`;
+                container.appendChild(card);
+            });
+        }
+
+        // AUTO-SCROLL VALIDASI
+        function highlightAndScroll(elementId, boxId, alertMsg) {
+            const el = document.getElementById(elementId);
+            const box = document.getElementById(boxId);
+            
+            alert(alertMsg);
+            box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            el.focus();
+            
+            el.classList.add('border-rose-500', 'ring-2', 'ring-rose-200');
+            setTimeout(() => {
+                el.classList.remove('border-rose-500', 'ring-2', 'ring-rose-200');
+            }, 2000);
+        }
+
+// VALIDASI & SALIN FORMAT ORDER ROBUX VISEND (RINGKAS)
+function handleGenerateFormat() {
+    const usernameInput = document.getElementById('acc-username');
+    const nicknameInput = document.getElementById('acc-nickname');
+
+    const username = usernameInput.value.trim();
+    const nickname = nicknameInput.value.trim();
+
+    // Auto scroll ke input yang kosong
+    if (!username) {
+        highlightAndScroll('acc-username', 'section-account', "⚠️ Harap isi Username Roblox terlebih dahulu!");
+        return;
+    }
+    if (!nickname) {
+        highlightAndScroll('acc-nickname', 'section-account', "⚠️ Harap isi Nickname Roblox terlebih dahulu!");
+        return;
+    }
+    if (!selectedProduct) {
+        alert("⚠️ Silakan pilih atau isi nominal Robux!");
+        document.getElementById('section-products').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+    if (!selectedPayment) {
+        alert("⚠️ Silakan pilih Metode Pembayaran!");
+        document.getElementById('section-payment').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+
+    const orderID = generateOrderID();
+
+    // TEMPLATE FORMAT ORDER SESUAI PERMINTAAN (TANPA LIST ITEM)
+    const formatPesan = 
+`🧾 ORDER TOPUPGRAM\r\n` +
+`=============================\r\n` +
+`Game: Robux Via Send (VISEND)\r\n` +
+`\r\n` +
+`📋 DATA ACCOUNT\r\n` +
+`-----------------------------\r\n` +
+`Username Roblox: ${username}\r\n` +
+`Nickname Roblox: ${nickname}\r\n` +
+`Jumlah Order: ${selectedProduct.name}\r\n` +
+`\r\n` +
+`💰 Total Harga: Rp ${selectedProduct.price.toLocaleString('id-ID')}\r\n` +
+`💳 Pembayaran: ${selectedPayment}\r\n` +
+`=============================\r\n` +
+`Order ID: ${orderID}`;
+
+    copyFormatToClipboard(formatPesan);
+}
+    </script>
+</body>
+</html>
